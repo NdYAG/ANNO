@@ -1,0 +1,36 @@
+section#all-books
+  h1(ng-show="user.is_self") 所有书
+  h1(ng-show="!user.is_self") {{ user.name }}的书架
+  ul.books
+    li.book(ng-repeat="book in books")
+      div.cover(remote-image='book.images.large')
+        a.book-link(link="/{{ user.uid }}/book/{{ book.id }}")
+        span.notes-count {{ book.notes_count }}篇笔记
+        a.add-note(ng-show='user.is_self', link="/{{ user.uid }}/book/{{ book.id }}/new")= "+"
+      span.title {{ book.title }}
+      span.author {{ book.author[0] }}
+    li.book.empty(ng-show="user.is_self", ng-click="searchBook()")
+      div.cover
+  p(ng-show="tipVisible") 还没有写过笔记
+
+script(type="text/ng-template", id="modalSearchBook.html")
+  div.modal-search(ng-controller="SearchBookCtrl")
+    div.modal-header
+      h3 给一本书写笔记
+    div.modal-body
+      input#new-book-name(type="text", placeholder="输入书名,回车查找", input-enter="searchBook(query)", ng-model="query")
+      input#new-book-id(type="hidden", value="{{ selectedBook.id }}")
+      ul.search-results
+        li.result(ng-repeat="book in books", ng-click="selectBook($index, book)", ng-class="{'active': $index == selectedIndex}")
+          img(remote-image="book.images.large")
+          div.result-info
+            h4 {{ book.title }}
+            p {{ book.summary | characters: 120 }}
+      div.tip(ng-show="has_searched") 搜索不到? 直接输入想读的书对应的豆瓣Subject ID (下例红色部分)
+      div.tip(ng-show="has_searched")
+        |  http://book.douban.com/subject/<span>25746578</span>/
+    div.modal-footer
+      div.selected-bookname {{ selectedBook.title }}
+      div.buttons-group
+        button.button-primary(ng-click="ok(selectedBook.id)") 开始写
+        button.button-default(ng-click="cancel()") 取消

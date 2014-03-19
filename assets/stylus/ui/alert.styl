@@ -1,0 +1,61 @@
+// get colors from
+// http://flatuicolors.com/
+@import '../lib/vendor'
+
+.alert
+  position fixed
+  top 4em
+  // z-index 1111
+  width 60%
+  min-width 500px
+  left 20%
+  opacity .96
+  box-shadow 0px 2px 4px rgba(0, 0, 0, 0.2)
+  // transform(rotateX(90deg))
+  // transform-origin(top center)
+  // transition-transform(1s)
+  top -4em
+  transition(top 1s)
+  cursor pointer
+  &:after
+    content "x"
+    position absolute
+    right 1em
+    top .5em
+  &.show
+    top 4em
+    //transform(rotateX(0))
+  
+
+.alert
+  padding .6em 1.2em
+  border 1px solid
+  border-radius 2px
+  text-align center
+  &.success
+    background-color #1abc9c
+    border-color #16a085
+    color #fff
+    a
+      color #fff
+      &:hover
+        background-color #fff
+        color #1abc9c
+  &.error
+    background-color #F17288
+    border-color #e74c3c
+    color #fff
+    a
+      color #fff
+      &:hover
+        color #F17288
+        background-color #fff
+  &.warn
+    background-color #F9EDBE
+    border-color #F0C36D
+    color #333
+    a
+      color #f39c12
+      &:hover
+        background-color #f39c12
+        color #fff

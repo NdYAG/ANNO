@@ -1,0 +1,16 @@
+ul#navigation
+  li
+    a.js-edit.icon-feather(data-title="编辑", ng-click="changeMode('edit-mode')", ng-class="{ 'active': mode == 'edit-mode' }")
+  li
+    a.js-preview.icon-eye(data-title="预览", ng-click="changeMode('read-mode')", ng-class="{ 'active': mode == 'read-mode' }")
+  li
+    a.js-columns.icon-columns(data-title="编辑+预览", ng-click="changeMode('column-mode')", ng-class="{ 'active': mode == 'column-mode' }")
+  li
+    a.js-fullscreen(data-title="全屏", ng-click="fullscreen()", ng-class="{ 'icon-restore': is_fullscreen, 'icon-fullscreen': !is_fullscreen }")
+  li
+    a.js-save.icon-save(data-title="保存", data-ajax="{{ action }}", ng-click="save()")
+
+
+div.container(ng-class="mode")
+  editor(article="note", images="images")
+  reader(article="note", images="images")

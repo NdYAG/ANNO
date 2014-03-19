@@ -1,0 +1,134 @@
+@import 'lib/vendor'
+
+tip(font_size = 14px)
+  [data-title]
+    position relative
+    &:after
+      display none
+      content attr(data-title) ""
+      position absolute
+      top 0
+      margin-left -100%
+      background rgba(0, 0, 0, .6)
+      color #fff
+      font-size font_size
+      border-radius 3px
+      padding (font_size/7) (font_size/2)
+      line-height font_size * 1.65
+      white-space pre
+      //left 80%
+      transform translate(-100%, 25%)
+    &:hover
+      &:after
+        display inline-block
+
+modal()
+  background rgba(0, 0, 0, .2)
+  width 160px
+  height 160px
+  position fixed
+  top 0
+  left 0
+  transform translate(-50%, 50%)
+
+html.global_editor
+  height 100%
+  overflow hidden
+  body, .ng-view, .container
+    height 100%
+  body
+    overflow hidden
+  .ng-view
+    overflow hidden
+    width calc(100% \- 64px)
+    margin-top 0
+
+#editor, #reader
+  height 100%
+  overflow-y scroll
+
+#reader
+  overflow-x hidden
+
+#navigation
+  position fixed
+  z-index 100
+  top 0
+  right 0
+  bottom 0
+  padding 10px 12px
+  margin 0
+  text-align center
+  // background #ddd
+  background #eee
+  li
+    list-style none
+  tip()
+  a
+    display inline-block
+    font-size 1.5em
+    width 40px
+    height 40px
+    line-height 40px
+    border-radius 3px
+    background #eee
+    text-decoration none
+    color #8d8d8d
+    margin .3em 0
+    &:hover
+      background #e9e9e9
+      box-shadow inset 0 0 3px #ccc
+    &.active
+      background #8d8d8d
+      color #f1f1f1
+      box-shadow 0 2px 0 #666
+      &:hover
+        box-shadow inset 0 0 3px rgba(0, 0, 0, .3), 0 2px 0 #666
+
+#editor, #reader
+  .book-title
+    font-size .8em
+    color #ccc
+
+@import "widgets/editor.styl"
+@import "widgets/reader.styl"
+
+// three kinds of editing mode
+.column-mode
+  #editor, #reader
+    float left
+    width 50%
+  #editor
+    margin 0
+    form
+      margin 40px 60px 0
+  #reader
+    box-sizing border-box
+    padding 40px 40px 0
+    border-left 1px solid #ccc
+
+.edit-mode
+  #reader
+    display none
+  #editor
+    form
+      max-width 600px
+      margin 40px auto 0
+
+.read-mode
+  #editor
+    display none
+  #reader
+    box-sizing border-box
+    padding-top 40px
+    pre
+      background #eee
+
+.modal-help
+  h3, h4
+    margin-bottom 0
+  h4
+    margin-top 1em
+  .modal-body
+    line-height 1.65
+    padding-top 0

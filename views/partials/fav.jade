@@ -1,0 +1,13 @@
+section#fav
+  h1 我收藏的笔记
+    sup *
+  ul.notes
+    li.note(ng-repeat="note in notes | orderBy: order : reverse")
+      a.note-mask(link="/note/{{ note.id }}")
+        time(datetime="{{ note.time }}") {{ note.time | date: note.time : 'longDate'}}
+        h3 {{ note.chapter || ("第" + note.page_no + "页") }}
+        p.note-summary {{ note.summary }}
+        span.note-page(ng-class="{ 'icon-lock': note.privacy == '1' }") P{{ note.page_no }}
+  div.footnote
+    small *收藏的笔记存储在Chrome云端，并未与豆瓣收藏同步。
+      a(link='/about') 为什么?

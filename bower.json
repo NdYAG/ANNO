@@ -1,0 +1,33 @@
+{
+  "name": "anno",
+  "version": "0.0.0",
+  "authors": [
+    "simonday@foxmail.com"
+  ],
+  "description": "Annotation",
+  "main": "app.js",
+  "keywords": [
+    "annotation"
+  ],
+  "license": "MIT",
+  "homepage": "http://daix.me",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "~1.2.13",
+    "angular-cookies": "~1.2.13",
+    "angular-bootstrap": "*",
+    "marked": "*",
+    "codemirror": "*",
+    "color-thief": "*",
+    "underscore": "*"
+  },
+  "resolutions": {
+    "angular": "~1.2.13"
+  }
+}

@@ -1,0 +1,73 @@
+$center
+  max-width 600px
+  margin-left auto
+  margin-right auto
+
+.typo-center
+  @extends $center
+
+.content
+  & > h2, & > h3, & > h4, & > h5, & > h6,
+  & > p, & > ul, & > ol,
+  & > pre code, & > blockquote,
+  & > hr
+    @extends $center
+
+.content
+  p, & > ol, & > ul, blockquote
+    font-size 15px
+    line-height 1.65
+  hr
+    border 0
+    border-top 1px dashed #aaa
+    margin-top 3em
+    margin-bottom 3em
+  a
+    text-decoration none
+    color #00B7FF
+    &:hover
+      background-color #00B7FF
+      color #fff
+  img
+    max-width 100%
+  blockquote
+    //background #fdfdfd
+    font-size 16px
+    // padding 1.6em 1.8em 1.6em 3.3em
+    padding 0.8em 0 .8em 3em
+    //box-shadow 0 0 2px #ccc
+    // border-left 3px solid #ccc
+    // border-top 1px solid #eee
+    // border-bottom 1px solid #eee
+    // border 1px solid #eee
+    box-sizing border-box
+    position relative
+    // background #fcfcfc
+    // background #f1f1f1
+    // border-radius 3px
+    // box-shadow 1px 1px 0 #ccc
+    border-left 3px solid #ccc
+    overflow hidden
+    font-style italic
+    &:before
+      // content "“"
+      position absolute
+      top .2em
+      left -.1em
+      font-size 3em
+      width 1em
+      height 1em
+      border-radius 1em
+      line-height 1.5em
+      text-align center
+      color #FFF
+      background-color #dedede
+      font-style normal
+      // background-color #cadab8
+  pre
+    padding 1em calc(50% \- 300px)
+
+pre
+  background transparent
+code.hljs
+  background transparent

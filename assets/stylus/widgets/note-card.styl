@@ -1,0 +1,80 @@
+@require '../fonticon'
+
+paper(font_size = 1em, line_height = 1.2em, background_color = #fff)
+    background -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, background_color)) 0 (line_height/4)
+    background -webkit-linear-gradient(top, #d9eaf3 0%, background_color 8%) 0 (line_height/4)
+    background -moz-linear-gradient(top, #d9eaf3 0%, background_color 8%) 0 (line_height/4)
+    background -ms-linear-gradient(top, #d9eaf3 0%, background_color 8%) 0 (line_height/4)
+    background -o-linear-gradient(top, #d9eaf3 0%, background_color 8%) 0 (line_height/4)
+    background linear-gradient(top, #d9eaf3 0%, background_color 8%) 0 (line_height/4)
+    background-size 100% 20px
+    position relative
+    &:before
+      content ''
+      position absolute
+      width 4px
+      top 0
+      left 1.1em
+      bottom 0
+      border 1px solid
+      border-color transparent #efe4e4
+    h1, h2, h3, h4, h5
+      line-height line_height // line_height * 2 (stylus bug?)
+      margin (line_height/2) 0
+    h1, h2, h3
+      font-size 1.2em
+    h4, h5
+      font-size 1em
+      font-weight normal
+    p
+      line-height 1.44em // line_height * 1.2
+    
+
+ul.notes
+  margin 0 -.8em
+
+.note
+  display inline-block
+  vertical-align top
+  border-radius .2em
+  width calc(33% \- 1.6em*4/3)
+  // width 28% // (100%  - 1.6em)/3
+  min-width 260px
+  margin .8em
+  //box-sizing padding-box
+  //background #f3f3f3
+  box-shadow 0 0 3px #aaa
+  paper(1em, 1.2em, #fcfcfc)
+  // &:before
+  //   content ""
+  //   position absolute
+  //   top 0
+  //   bottom 0
+  //   width 2px
+  //   left 1em
+  //   background-color #FFB6C1 // lightpink
+  //   opacity .3
+  &:hover
+    .note-mask
+      background-color rgba(0, 0, 0, .03)
+  .note-mask
+    display block
+    text-decoration none
+    color #333
+    padding .6em 1.3em 1em 2.3em
+  time
+    color #aaa
+  h3
+    word-wrap break-word
+  .note-summary
+    word-wrap break-word
+    margin 0 0 1em
+    // margin 0
+    color #444
+  .note-page
+    color #ccc
+    font-size .8em
+    position absolute
+    bottom .2em
+    right .4em
+    

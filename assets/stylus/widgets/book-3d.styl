@@ -1,0 +1,152 @@
+@import '../lib/vendor'
+
+.book-large
+  display inline-block
+  box-shadow 10px 4px 5px rgba(0, 0, 0, .08), -10px 20px 12px rgba(0, 0, 0, .15) //, inset 0 0 1px #000
+  position relative
+  font-size 0
+  &:before
+    content ""
+    position absolute
+    top 1px
+    bottom 1px
+    left 1%
+    width 1px
+    box-shadow 10px 0 6px #111
+  img
+    position relative
+    z-index -1
+
+cube_l = 300px
+cube_w = 40px
+cube_h = 400px
+
+.cubic-view
+  perspective 1800px
+
+.book-cube
+  transform-style preserve-3d
+  position relative
+  transform-origin top left
+  transition -webkit-transform .5s
+  transition -moz-transform .5s
+  transition transform .5s
+  min-width cube_l
+  min-height cube_h
+  display inline-block
+  transform rotateY(0) scale(.9)
+  &.sided
+    transform rotateY(35deg) scale(.9)
+  &:hover
+    transform rotateY(0) scale(.9)
+  div
+    position absolute
+    // background-color rgba(0, 0, 0, .3)
+  .book-front, .book-back
+    width cube_l
+    height cube_h
+  .book-left, .book-right
+    width cube_w
+    height cube_h
+    left -(cube_w/2)
+  .book-top, .book-bottom
+    width cube_l - 5px
+    height cube_w
+    top -15px
+  .book-back
+    transform rotateY(-180deg) translate3d(0,0,20px)
+  .book-right
+    transform rotateY(90deg) translate3d(0, 0, 295px)
+  .book-left 
+    transform rotateY(-90deg)
+  .book-top
+    transform rotateX(90deg)
+  .book-bottom 
+	  transform rotateX(-90deg) translate3d(0,0,390px)
+  .book-front
+	  transform translate3d(0,0,20px)
+  .book-front, .book-left
+    background-size cover
+  .book-front
+    background-position center
+    box-shadow inset 4px 0 10px rgba(0, 0, 0, 0.1)
+    &:before
+      content ""
+      position absolute
+      top 0
+      left 10px
+      bottom 0
+      width 3px
+      background rgba(0, 0, 0, 0.06)
+      box-shadow 1px 0 3px rgba(255, 255, 255, 0.1)
+  .book-back
+    box-shadow 10px 10px 30px rgba(0, 0, 0, 0.3)
+  .book-left
+    background-color #fff
+    overflow hidden
+    &:before
+      content ""
+      position absolute
+      width cube_w
+      height cube_h
+      top 0
+      left 0
+      background-color rgba(0, 0, 0, .2)
+    .book-title
+      -webkit-writing-mode vertical-rl
+      width cube_w
+      line-height cube_w
+      font-size 1.8em
+      //white-space pre
+      // padding 1em 0
+      height "calc(%s - 2em)" % cube_h
+      overflow hidden
+      position relative
+      top 1em
+  .book-page
+    width cube_l
+    height cube_h
+    background #fff
+    // line-height cube_h
+    text-align center
+    transform translate3d(0,0,19px)
+    background #f1f1f1
+    opacity .9
+    .page-content
+      opacity 0
+      position relative
+      top 50%
+      left 50%
+      width 50%
+      transform translate(-50%, -50%)
+      transition opacity 1s
+    a
+      display block
+      color #666
+      // color lightseagreen
+      padding .8em 1.2em
+      // border 2px solid lightseagreen
+      text-decoration none
+      margin-bottom 1em
+      transition all .5s
+      border-radius 3px
+      &:hover
+        // background lightseagreen
+        color #fff
+        background #222
+  .book-left
+    .book-title
+      opacity 1
+      transition opacity 1s
+  .book-front
+    transition-transform 1s
+    transform-origin top left
+    cursor pointer
+    &.opened
+      transform translate3d(0,0,20px) rotateY(-100deg)
+      & + .book-page
+        .page-content
+          opacity 1
+      & ~ .book-left
+        .book-title
+          opacity 0

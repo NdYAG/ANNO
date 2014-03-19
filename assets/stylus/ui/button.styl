@@ -1,0 +1,61 @@
+button
+  background #eee
+  color #777
+  padding .4em 1.2em
+  border 0
+  box-shadow 0 0 1px #ccc
+  border-radius 3px
+  &.active, &:active, &:focus
+    outline 0
+    box-shadow 0 0 1px #ccc, inset 0 0 1px #ccc
+    background #fcfcfc
+    color #333
+
+$basic_button
+  padding .4em 1.2em
+  border 0
+  border-radius 0
+  box-shadow none
+  cursor pointer
+
+.button-default
+  @extends $basic_button
+  background #fff
+  border 1px solid #eee
+
+.button-primary
+  @extends $basic_button
+  background lightseagreen
+  border 1px solid lightseagreen
+  color #fff
+
+.button-warning
+  @extends $basic_button
+  background #e74c3c
+  color #fff
+  border 1px solid #e74c3c
+
+.button-radio
+  @extends $basic_button
+  border-radius 3px
+  &.active, &:active, &:focus
+    box-shadow inset 0 1px 3px darken(lightseagreen, 30%)
+    color #fff
+    background lightseagreen
+  
+
+.button-group
+  button
+    &:first-child
+      border-radius 3px 0 0 3px
+      &.active, &:active, &:focus
+        box-shadow 0 0 1px #ccc, inset 0 0 1px #ccc, inset 1px 0 #ddd
+    &:last-child
+      border-radius 0 3px 3px 0
+      &.active, &:active, &:focus
+        box-shadow 0 0 1px #ccc, inset 0 0 1px #ccc, inset -1px 0 #ddd
+
+.buttons-group
+  button
+    &:first-child
+      margin-right 1em

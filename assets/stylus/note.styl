@@ -1,0 +1,64 @@
+@require "fonticon"
+@require 'ui/typography'
+
+body
+  & > .meta
+    @extends $center
+
+.global_note
+  .ng-view
+    margin-top 0
+    padding-top 50px
+
+#one-note
+  margin 0
+  h1
+    @extends $center
+  pre
+    background #eee
+    white-space pre-wrap
+  .content
+    margin-bottom 40px
+    -webkit-user-select text
+    user-select text
+  .share
+    margin-bottom 60px
+
+.meta
+  color #aaa
+  @extends $center
+  span
+    margin-left .5em
+    &:first-child
+      margin-left 0
+  a
+    text-decoration none
+    color lightseagreen
+    margin-right .5em
+    &:hover
+      background lightseagreen
+      color #fff
+
+.operate
+  padding 1em
+  margin 0 auto
+  padding-left calc(50% \- 300px)
+  margin .3em 0 1.2em
+  a
+    color #808080
+    margin-right 1em
+    text-decoration none
+    &:hover
+      color #111
+    &.icon-evernote
+      &:hover
+        color #48b449
+    &.icon-pen
+      &:hover
+        color #0E90D2
+    &.icon-star, &.icon-star-empty
+      &:hover
+        color #f39c12
+    &.icon-delete
+      &:hover
+        color #DD514C

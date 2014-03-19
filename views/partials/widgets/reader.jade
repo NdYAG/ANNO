@@ -1,0 +1,4 @@
+div#reader
+  div.book-title.typo-center(ng-show="article.book") {{ article.book.title }}:
+  h1.title {{ article.chapter }}
+  previewer(markdown="article.content", images="images")

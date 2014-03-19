@@ -1,0 +1,58 @@
+@import "../lib/vendor"
+
+.loading
+  width 50px
+  height 30px
+  text-align center
+  font-size 10px
+  position fixed
+  // top 5px
+  // right 5px
+  top 50%
+  left 50%
+  transform(translate(-50%, -50%))
+  background rgba(0,0,0,.4)
+  padding 80px
+  border-radius 10px
+  z-index 1099
+  opacity .8
+  transition(opacity 1s)
+  &.fadeOut
+    opacity 0
+
+
+.loading > div
+  background-color #fff
+  height 100%
+  width 6px
+  margin-right 2px
+  display inline-block
+  -webkit-animation stretchdelay 1.2s infinite ease-in-out
+  animation stretchdelay 1.2s infinite ease-in-out
+  transform translateZ(0)
+
+
+.loading .rect2
+  -webkit-animation-delay -1.1s
+  animation-delay -1.1s
+
+
+.loading .rect3
+  -webkit-animation-delay -1.0s
+  animation-delay -1.0s
+
+
+.loading .rect4
+  -webkit-animation-delay -0.9s
+  animation-delay -0.9s
+
+
+.loading .rect5
+  -webkit-animation-delay -0.8s
+  animation-delay -0.8s
+
+@keyframes stretchdelay
+  0%, 40%, 100%
+    transform(scaleY(.4))
+  20% 
+    transform(scaleY(1.0))

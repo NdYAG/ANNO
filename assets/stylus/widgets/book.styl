@@ -1,0 +1,111 @@
+@import '../lib/vendor'
+
+book_w = 120px
+book_h = 160px
+
+.book
+  display inline-block
+  vertical-align top
+  .cover
+    position relative
+    min-width book_w
+    height book_h
+    overflow hidden
+    background-size cover
+    background-position center
+    box-shadow 0 2px 3px #ddd
+    position relative
+    // &:before
+    //   content ""
+    //   position absolute
+    //   top 0
+    //   bottom 0
+    //   left 0
+    //   width 10px
+    //   background linear-gradient(to right,rgb(255, 255, 255) 0,rgba(255, 255, 255, 0.1)  20%,rgba(0, 0, 0, 0.3) 100%)
+    //   opacity .3
+    a
+      text-decoration initial
+    .book-link
+      min-width book_w
+      height book_h
+      display inline-block
+      // overflow hidden
+      // border-radius 0 .3em .3em 0
+      // box-shadow 2px 2px 2px #DDD, inset 4px 0 0 rgba(0, 0, 0, .1)
+      box-shadow inset 0 0 1px #000
+      position relative
+      background-color transparent
+      transition background-color .3s
+    &:hover
+      .book-link
+        background-color rgba(0, 0, 0, .65)
+      .add-note
+        display block
+        bottom .5em
+      .notes-count
+        top 1em
+  .title, .author
+    display block
+    width book_w
+    margin-top .3em
+  .title
+    font-weight bold
+  .author
+    font-size .9em
+    color #ccc
+  .add-note
+    border 3px solid #fff
+    color #fff
+    width 1.8em
+    height 1.8em
+    font-size 1.5em
+    text-align center
+    line-height 1.6em
+    border-radius 1em
+    position absolute
+    z-index 2
+    bottom -3em
+    right .5em
+    transition bottom .5s
+    transform translateZ(0)
+    &:hover
+      background #fff
+      color #111
+  .notes-count
+    position absolute
+    z-index 2
+    color #fff
+    top -2em
+    display block
+    width 100%
+    text-align center
+    transition top .5s
+    transform translateZ(0)
+    pointer-events none
+
+
+.book.empty
+  .cover
+    box-shadow initial
+    border 3px dashed #ccc
+    box-sizing border-box
+    cursor pointer
+    &:before
+      background transparent
+    &:after
+      content "+"
+      color #bbb
+      font-size 3em
+      position absolute
+      top 0
+      right 0
+      bottom 0
+      left 0
+      text-align center
+      line-height book_h - 0.5*14px
+      // line-height "calc(%s - .5em)" % book_h
+    &:hover
+      border-color #aaa
+      &:after
+        color #999

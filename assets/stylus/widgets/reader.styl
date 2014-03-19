@@ -1,0 +1,18 @@
+@require '../ui/typography'
+
+#reader
+  min-height 100%
+  z-index 2
+  transition left 1s
+  background #f7f7f7
+  &.hidden
+    left 100%
+  h1
+    margin-top 0
+    @extend $center
+
+  pre
+    overflow-x scroll
+  .content
+    margin-bottom 100px
+    word-break break-word

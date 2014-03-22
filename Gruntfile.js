@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: "assets/js",
-          src: "*.js",
+          src: ["*.js", "!*.sample.js"],
           dest: "public/js",
           ext: ".min.js"
         }]
@@ -82,5 +82,5 @@ module.exports = function(grunt) {
   grunt.registerTask('html', ['jade'])
   grunt.registerTask('css', ['stylus'])
   grunt.registerTask('js', ['uglify'])
-  grunt.registerTask('default', ['jade', 'stylus'])
+  grunt.registerTask('default', ['jade', 'js', 'stylus'])
 }

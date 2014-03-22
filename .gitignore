@@ -1,0 +1,12 @@
+*.DS_Store
+*~
+
+*.orig
+*.swp
+
+node_modules/
+bower_components/
+
+
+assets/js/config.js
+public/js/config.min.js

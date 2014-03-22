@@ -408,6 +408,13 @@ angular.module('ANNO')
 }])
 .factory('HttpLoadingIntercepter', ['$q', '$rootScope', function($q, $rootScope) {
   var n_loading = 0
+  function isSerious(rejection) {
+    if (rejection.data.type === 'text/html') {
+      return false
+    }
+    return true
+  }
+
   return {
     'request': function(config) {
       n_loading++
@@ -425,7 +432,9 @@ angular.module('ANNO')
       return response || $q.when(response)
     },
     'responseError': function(rejection) {
-      $rootScope.$broadcast('alert:error', rejection.data)
+      if (isSerious(rejection)) {
+        $rootScope.$broadcast('alert:error', rejection.data)
+      }
       if (!(--n_loading)) {
         $rootScope.$broadcast('loading:hide')
       }

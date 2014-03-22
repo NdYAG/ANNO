@@ -21,16 +21,3 @@ div#editor
       // li.icon-link
       li.icon-help(ng-click="toggleEditorHelp()")
     codemirror(ng-model="article.content", onload="codeMirrorLoad")
-    script(type="text/ng-template", id="modalEditorHelp.html")
-      div.modal-help
-        div.modal-header
-          h3 用 Markdown 写笔记
-        div.modal-body.
-          <h4>Markdown</h4>
-          Markdown 的语法很简单，可以让你快速地写下内容，不用拘泥于格式。<br/>
-          这里有一张 Github Flavor Markdown 的 cheat sheet，帮助你快速熟悉语法。 <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet</a><br/>
-          编辑器的工具栏上目前有加粗、倾斜、图片、原文，可以简单上手。
-          <h4>编辑模式与日记保存</h4>
-          在右边导航栏上，可以切换编辑、预览、即时编辑模式，以及切换全屏和保存。
-        div.modal-footer
-          button.button-primary(ng-click="ok()") 知道啦

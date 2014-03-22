@@ -1,16 +1,5 @@
-@require "lib/vendor"
-$page_width = 600px
-
-html, body
+html
   height 100%
-
-.ng-view
-  height calc(100% \- 50px)
-  margin-top 50px
-  overflow-y auto
-
-.ng-hide
-  display: none !important;
 
 body
   padding: 50px
@@ -19,9 +8,6 @@ body
   color #111
 a
   color #00B7FF
-  cursor pointer
-
-// [link]
 
 pre
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
@@ -51,7 +37,7 @@ header
 
 //#all-books, #one-book, #about, #info, #friends
 .ng-view > section
-  margin 3em 3em 0
+  margin 5em 3em 0
 
 // all books
 
@@ -93,7 +79,7 @@ li.book
   padding 0
   margin-right -20px
   padding-right 20px
-  max-height 260px
+  max-height 280px
   overflow-y scroll
   li
     list-style none
@@ -132,28 +118,23 @@ li.book
       &:before
         display block
 
-.selected-book-name
-  color #e74c3c
-
 
 // one book
 .ng-view.pushed
   .main
-    top 60px
+    top 30px
 
 #one-book
   h1
     a
       color #000
       text-decoration none
-
-.cubic-view
-  float left
-
+  
 .main
-  margin-left 310px
-  transform(translateZ(0))
-
+  position absolute
+  top 120px
+  left 360px
+  right 20px
 
 header
   h2, .order
@@ -163,10 +144,6 @@ header
     left 3em
 
 @import "widgets/book-3d.styl"
-
-.cubic-view
-  .book-back
-    width 308px
 
 ul.notes
   padding 0
@@ -185,8 +162,6 @@ ul.notes
   border 2px solid #eee
   padding 1em
   box-sizing border-box
-  -webkit-user-select text
-  user-select text
   pre
     white-space pre-wrap
 
@@ -206,21 +181,3 @@ ul.notes
 
 // friends
 @import "mod_friends.styl"
-
-// mod_error
-.not_found
-  font-size 2em
-  position absolute
-  top 30%
-  left 50%
-  transform(translate(-50%, -50%))
-  color #aaa
-  text-align center
-  a
-    display block
-    font-size .8em
-    margin-top 1em
-
-// mod_fav
-.footnote
-  margin-top 1em

@@ -5,22 +5,15 @@ body
   & > .meta
     @extends $center
 
-.global_note
-  .ng-view
-    margin-top 0
-    padding-top 50px
-
 #one-note
-  margin 0
   h1
     @extends $center
+  margin 5em 0 0 0
   pre
     background #eee
     white-space pre-wrap
   .content
     margin-bottom 40px
-    -webkit-user-select text
-    user-select text
   .share
     margin-bottom 60px
 
@@ -42,7 +35,7 @@ body
 .operate
   padding 1em
   margin 0 auto
-  padding-left calc(50% \- 300px)
+  padding-left calc(50% \- 360px)
   margin .3em 0 1.2em
   a
     color #808080
@@ -56,9 +49,6 @@ body
     &.icon-pen
       &:hover
         color #0E90D2
-    &.icon-star, &.icon-star-empty
-      &:hover
-        color #f39c12
     &.icon-delete
       &:hover
         color #DD514C

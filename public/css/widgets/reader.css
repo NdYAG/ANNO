@@ -1,0 +1,15 @@
+.typo-center,.content > h2,.content > h3,.content > h4,.content > h5,.content > h6,.content > p,.content > ul,.content > ol,.content > pre code,.content > blockquote,.content > hr,#reader h1{max-width:720px;margin-left:auto;margin-right:auto}
+.content p,.content > ol,.content > ul,.content blockquote{font-size:15px;line-height:1.65}
+.content hr{border:0;border-top:1px dashed #aaa;margin-top:3em;margin-bottom:3em}
+.content a{text-decoration:none;color:#00b7ff;}
+.content a:hover{background-color:#00b7ff;color:#fff}
+.content blockquote{font-size:16px;padding:.8em 0 .8em 3em;box-sizing:border-box;position:relative;border-left:3px solid #ccc;overflow:hidden;font-style:italic;}
+.content blockquote:before{position:absolute;top:.2em;left:-.1em;font-size:3em;width:1em;height:1em;border-radius:1em;line-height:1.5em;text-align:center;color:#fff;background-color:#dedede;font-style:normal}
+.content pre{padding:1em calc(50% - 360px)}
+pre{background:transparent}
+code.hljs{background:transparent}
+#reader{min-height:100%;z-index:2;transition:left 1s;background:#f7f7f7;}
+#reader.hidden{left:100%}
+#reader h1{margin-top:0;}
+#reader pre{overflow-x:scroll}
+#reader .content{margin-bottom:100px;word-break:break-word}

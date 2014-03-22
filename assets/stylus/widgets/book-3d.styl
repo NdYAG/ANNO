@@ -28,15 +28,13 @@ cube_h = 400px
   transform-style preserve-3d
   position relative
   transform-origin top left
+  transform rotateY(35deg) scale(.9)
   transition -webkit-transform .5s
   transition -moz-transform .5s
   transition transform .5s
   min-width cube_l
   min-height cube_h
   display inline-block
-  transform rotateY(0) scale(.9)
-  &.sided
-    transform rotateY(35deg) scale(.9)
   &:hover
     transform rotateY(0) scale(.9)
   div
@@ -141,7 +139,6 @@ cube_h = 400px
   .book-front
     transition-transform 1s
     transform-origin top left
-    cursor pointer
     &.opened
       transform translate3d(0,0,20px) rotateY(-100deg)
       & + .book-page

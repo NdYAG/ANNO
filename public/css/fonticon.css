@@ -1,0 +1,25 @@
+@font-face{font-family:'icomoon';src:url("/fonts/icomoon.eot?-s5hseh");src:url("/fonts/icomoon.eot?#iefix-s5hseh") format('embedded-opentype'),url("/fonts/icomoon.woff?-s5hseh") format('woff'),url("/fonts/icomoon.ttf?-s5hseh") format('truetype'),url("/fonts/icomoon.svg?-s5hseh#icomoon") format('svg');font-weight:normal;font-style:normal}
+[class^="icon-"],[class*=" icon-"]{font-family:'icomoon';speak:none;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.icon-evernote:before{content:"\e600"}
+.icon-lock:before{content:"\e602"}
+.icon-feather:before{content:"\e603"}
+.icon-leaf:before{content:"\e605"}
+.icon-delete:before{content:"\e604"}
+.icon-pen:before{content:"\e606"}
+.icon-zoom-in:before{content:"\e60b"}
+.icon-zoom-out:before{content:"\e60c"}
+.icon-expand:before{content:"\e607"}
+.icon-eye:before{content:"\e60a"}
+.icon-save:before{content:"\e601"}
+.icon-columns:before{content:"\e608"}
+.icon-bold:before{content:"\e614"}
+.icon-italic:before{content:"\e615"}
+.icon-image:before{content:"\e616"}
+.icon-left-quote:before{content:"\e617"}
+.icon-info:before{content:"\e618"}
+.icon-help:before{content:"\e61b"}
+.icon-list:before{content:"\e619"}
+.icon-numbered-list:before{content:"\e60f"}
+.icon-link:before{content:"\e60d"}
+.icon-sidebar:before{content:"\e61a"}
+.icon-more:before{content:"\e613"}

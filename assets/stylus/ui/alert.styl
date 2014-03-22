@@ -17,11 +17,6 @@
   top -4em
   transition(top 1s)
   cursor pointer
-  &:after
-    content "x"
-    position absolute
-    right 1em
-    top .5em
   &.show
     top 4em
     //transform(rotateX(0))
@@ -32,15 +27,6 @@
   border 1px solid
   border-radius 2px
   text-align center
-  &.success
-    background-color #1abc9c
-    border-color #16a085
-    color #fff
-    a
-      color #fff
-      &:hover
-        background-color #fff
-        color #1abc9c
   &.error
     background-color #F17288
     border-color #e74c3c

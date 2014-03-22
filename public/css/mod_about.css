@@ -1,0 +1,6 @@
+#about{line-height:1.65;}
+#about h1{font-size:1.8em}
+#about a{color:#20b2aa;}
+#about a:hover{background:#20b2aa;color:#fff}
+#about h2 + ul,#about h2 + div{padding-left:40px}
+#about h2 + div a{display:inline-block;margin:0 .8em;text-decoration:none}

@@ -1,0 +1,32 @@
+.book-large{display:inline-block;box-shadow:10px 4px 5px rgba(0,0,0,0.08),-10px 20px 12px rgba(0,0,0,0.15);position:relative;font-size:0;}
+.book-large:before{content:"";position:absolute;top:1px;bottom:1px;left:1%;width:1px;box-shadow:10px 0 6px #111}
+.book-large img{position:relative;z-index:-1}
+.cubic-view{-webkit-perspective:1800px;-moz-perspective:1800px;perspective:1800px}
+.book-cube{-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;transform-style:preserve-3d;position:relative;-webkit-transform-origin:top left;-moz-transform-origin:top left;transform-origin:top left;-webkit-transform:rotateY(35deg) scale(.9);-moz-transform:rotateY(35deg) scale(.9);transform:rotateY(35deg) scale(.9);-webkit-transition:-webkit-transform .5s;-moz-transition:-webkit-transform .5s;transition:-webkit-transform .5s;-webkit-transition:-moz-transform .5s;-moz-transition:-moz-transform .5s;transition:-moz-transform .5s;-webkit-transition:transform .5s;-moz-transition:transform .5s;transition:transform .5s;min-width:300px;min-height:400px;display:inline-block;}
+.book-cube:hover{-webkit-transform:rotateY(0) scale(.9);-moz-transform:rotateY(0) scale(.9);transform:rotateY(0) scale(.9)}
+.book-cube div{position:absolute}
+.book-cube .book-front,.book-cube .book-back{width:300px;height:400px}
+.book-cube .book-left,.book-cube .book-right{width:40px;height:400px;left:-20px}
+.book-cube .book-top,.book-cube .book-bottom{width:295px;height:40px;top:-15px}
+.book-cube .book-back{-webkit-transform:rotateY(-180deg) translate3d(0,0,20px);-moz-transform:rotateY(-180deg) translate3d(0,0,20px);transform:rotateY(-180deg) translate3d(0,0,20px)}
+.book-cube .book-right{-webkit-transform:rotateY(90deg) translate3d(0,0,295px);-moz-transform:rotateY(90deg) translate3d(0,0,295px);transform:rotateY(90deg) translate3d(0,0,295px)}
+.book-cube .book-left{-webkit-transform:rotateY(-90deg);-moz-transform:rotateY(-90deg);transform:rotateY(-90deg)}
+.book-cube .book-top{-webkit-transform:rotateX(90deg);-moz-transform:rotateX(90deg);transform:rotateX(90deg)}
+.book-cube .book-bottom{-webkit-transform:rotateX(-90deg) translate3d(0,0,390px);-moz-transform:rotateX(-90deg) translate3d(0,0,390px);transform:rotateX(-90deg) translate3d(0,0,390px)}
+.book-cube .book-front{-webkit-transform:translate3d(0,0,20px);-moz-transform:translate3d(0,0,20px);transform:translate3d(0,0,20px)}
+.book-cube .book-front,.book-cube .book-left{background-size:cover}
+.book-cube .book-front{background-position:center;box-shadow:inset 4px 0 10px rgba(0,0,0,0.1);}
+.book-cube .book-front:before{content:"";position:absolute;top:0;left:10px;bottom:0;width:3px;background:rgba(0,0,0,0.06);box-shadow:1px 0 3px rgba(255,255,255,0.1)}
+.book-cube .book-back{box-shadow:10px 10px 30px rgba(0,0,0,0.3)}
+.book-cube .book-left{background-color:#fff;overflow:hidden;}
+.book-cube .book-left:before{content:"";position:absolute;width:40px;height:400px;top:0;left:0;background-color:rgba(0,0,0,0.2)}
+.book-cube .book-left .book-title{-webkit-writing-mode:vertical-rl;width:40px;line-height:40px;font-size:1.8em;height:calc(400px - 2em);overflow:hidden;position:relative;top:1em}
+.book-cube .book-page{width:300px;height:400px;background:#fff;text-align:center;-webkit-transform:translate3d(0,0,19px);-moz-transform:translate3d(0,0,19px);transform:translate3d(0,0,19px);background:#f1f1f1;opacity:.9;}
+.book-cube .book-page .page-content{opacity:0;position:relative;top:50%;left:50%;width:50%;-webkit-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);transform:translate(-50%,-50%);-webkit-transition:opacity 1s;-moz-transition:opacity 1s;transition:opacity 1s}
+.book-cube .book-page a{display:block;color:#666;padding:.8em 1.2em;text-decoration:none;margin-bottom:1em;-webkit-transition:all .5s;-moz-transition:all .5s;transition:all .5s;border-radius:3px;}
+.book-cube .book-page a:hover{color:#fff;background:#222}
+.book-cube .book-left .book-title{opacity:1;-webkit-transition:opacity 1s;-moz-transition:opacity 1s;transition:opacity 1s}
+.book-cube .book-front{-webkit-transition:-webkit-transform 1s;-moz-transition:-moz-transform 1s;-webkit-transition:transform 1s;-moz-transition:transform 1s;transition:transform 1s;-webkit-transform-origin:top left;-moz-transform-origin:top left;transform-origin:top left;}
+.book-cube .book-front.opened{-webkit-transform:translate3d(0,0,20px) rotateY(-100deg);-moz-transform:translate3d(0,0,20px) rotateY(-100deg);transform:translate3d(0,0,20px) rotateY(-100deg);}
+.book-cube .book-front.opened + .book-page .page-content{opacity:1}
+.book-cube .book-front.opened ~ .book-left .book-title{opacity:0}

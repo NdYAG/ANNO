@@ -1,0 +1,9 @@
+.alert{position:fixed;top:4em;width:60%;min-width:500px;left:20%;opacity:.96;box-shadow:0 2px 4px rgba(0,0,0,0.2);top:-4em;-webkit-transition:top 1s;-moz-transition:top 1s;transition:top 1s;cursor:pointer;}
+.alert.show{top:4em}
+.alert{padding:.6em 1.2em;border:1px solid;border-radius:2px;text-align:center;}
+.alert.error{background-color:#f17288;border-color:#e74c3c;color:#fff;}
+.alert.error a{color:#fff;}
+.alert.error a:hover{color:#f17288;background-color:#fff}
+.alert.warn{background-color:#f9edbe;border-color:#f0c36d;color:#333;}
+.alert.warn a{color:#f39c12;}
+.alert.warn a:hover{background-color:#f39c12;color:#fff}

@@ -1,14 +1,14 @@
 section#one-book
   h1
-    a(link="/{{ author.uid }}", ng-show="!author.is_self") {{ author.name }}的书架 > 
+    a(ng-href="/#/{{ author.uid }}", ng-show="author.id != user.id") {{ author.name }}的书架 > 
     {{ book.title }}
   div.cubic-view
-    div.book-cube(color-thief, image="book_cover", ng-model="dominateColor", ng-class="{ 'sided': book_sided }")
-      div.book-front(ng-class="{ 'opened': book_opened }", ng-click="openBook()", remote-image="book_cover")
+    div.book-cube(color-thief, image="book_cover", ng-model="dominateColor")
+      div.book-front(ng-class="{ 'opened': book_opened }", ng-click="openBook()", ng-style="{ 'background-image': dominateColor.image? ('url(' + dominateColor.image + ')' ): 'none' }")
       div.book-page(ng-mouseleave="openBook()")
         div.page-content
-          a.icon-feather(link="/{{ user.uid }}/book/{{ book.id }}/new")写新笔记
-          a(ng-click="exportNotes()")导出所有笔记
+          a.icon-feather(href="/#/{{ user.uid }}/book/{{ book.id }}/new")写新笔记
+          a(href="javascript:;", ng-click="exportNotes()")导出所有笔记
           a(href="http://book.douban.com/subject/{{ book.id }}/", target="_blank")去豆瓣看这本书
       div.book-back(ng-style="{ 'background-color': dominateColor.background }")
       div.book-top
@@ -25,7 +25,7 @@ section#one-book
         button(ng-click="order='page_no'; reverse=false", ng-class="{'active': (order=='page_no')}") 页码
     ul.notes
       li.note(ng-repeat="note in book.notes | orderBy: order : reverse")
-        a.note-mask(link="/note/{{ note.id }}")
+        a.note-mask(ng-href="/#/note/{{ note.id }}")
           time(datetime="{{ note.time }}") {{ note.time | date: note.time : 'longDate'}}
           h3 {{ note.chapter || ("第" + note.page_no + "页") }}
           p.note-summary {{ note.summary }}

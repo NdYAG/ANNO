@@ -1,0 +1,17 @@
+.modal-open{overflow:hidden;}
+.modal{display:none;overflow:auto;overflow-y:scroll;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;}
+.modal.fade .modal-dialog{position:absolute;top:0;left:50%;-webkit-transform:translateX(-50%);-moz-transform:translateX(-50%);transform:translateX(-50%);-webkit-transition:-webkit-transform .3s ease-out;-moz-transition:-moz-transform .3s ease-out;-webkit-transition:transform .3s ease-out;-moz-transition:transform .3s ease-out;transition:transform .3s ease-out;min-width:50%}
+.modal-dialog{margin-left:auto;margin-right:auto;width:auto;padding:10px;z-index:1050}
+.modal-content{position:relative;background-color:#fff;border:1px solid rgba(0,0,0,0.2);border-radius:$border-radius-large;background-clip:padding-box;outline:none}
+.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1030;background-color:rgba(0,0,0,0.3);}
+.modal-header{padding:15px}
+.modal-header .close{margin-top:-2px}
+.modal-title{margin:0;line-height:$line-height-base}
+.modal-body{position:relative;padding:20px}
+.modal-footer{margin-top:15px;padding:19px 20px 20px;text-align:right;border-top:1px solid #e5e5e5;background:#f9f9f9;}
+.modal-footer .btn + .btn{margin-left:5px;margin-bottom:0}
+.modal-footer .btn-group .btn + .btn{margin-left:-1px}
+.modal-footer .btn-block + .btn-block{margin-left:0}
+@media $media-screen-min-tablet{.modal-dialog{left:50%;right:auto;width:600px;padding-top:30px;padding-bottom:30px}
+.modal-content{box-shadow:0 5px 15px rgba(0,0,0,0.5)}
+}

@@ -1,12 +1,12 @@
 section#info
   h1 {{ user.name }}
   div.summary.ui-card.
-    从{{ start }}到{{ end }}我一共给<a link="/">{{ total_books }}本书</a>写了{{ total_notes }}篇笔记
-    第一篇笔记<a link="/note/{{ start_note.id }}" ng-show="start_note.chapter">{{ start_note.chapter }}</a>来自<a link="/{{ user.uid }}/book/{{ start_book.id }}">{{ start_book.title }}</a>
-    其中给<a link="/{{ user.uid }}/book/{{ max_book.id }}">{{ max_book.title }}</a>写了最多笔记，一共{{ max_book.notes_count }}篇
-  h2 最近写过笔记的书
+    从{{ start }}到{{ end }}我一共给<a href="/#/">{{ total_books }}本书</a>写了{{ total_notes }}篇笔记
+    第一篇笔记<a href="/#/note/{{ start_note.id }}" ng-show="start_note.chapter">{{ start_note.chapter }}</a>来自<a href="/#/{{ user.uid }}/book/{{ start_book.id }}">{{ start_book.title }}</a>
+    其中给<a href="/#/{{ user.uid }}/book/{{ max_book.id }}">{{ max_book.title }}</a>写了最多笔记，一共{{ max_book.notes_count }}篇
+  h2 最近写过笔记的五本书
     ul.books
       li.book(ng-repeat="book in recent_books")
-        div.cover(remote-image="book.images.large")
-          a.book-link(link="/{{ user.uid }}/book/{{ book.id }}")
-          a.add-note.icon-pen(link="/{{ user.uid }}/book/{{ book.id }}/new", title="继续写")
+        div.cover(ng-style="{'background-image': 'url({{ book.images.large }})'}")
+          a.book-link(ng-href="/#/{{ user.uid }}/book/{{ book.id }}")
+          a.add-note.icon-pen(ng-href="/#/{{ user.uid }}/book/{{ book.id }}/new", title="继续写")

@@ -2,8 +2,8 @@ section#friends
   h1 友邻的笔记
   ul.friends
     li.friend(ng-repeat="friend in friends")
-      a(link="/{{ friend.uid }}")
-        img(remote-image="friend.small_avatar")
+      a(href="/#/{{ friend.uid }}")
+        img(ng-src="{{ friend.small_avatar }}")
         span {{ friend.screen_name }}
     li.friend.more
-      a.icon-more(ng-click="showMoreFriends()", ng-show="and_more")
+      a.icon-more(href="javascript:;", ng-click="showMoreFriends()", ng-show="and_more")

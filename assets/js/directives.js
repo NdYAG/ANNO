@@ -284,17 +284,15 @@ angular.module('ANNO.directives', [])
         '1003': '上传图片太大，不能大于3M',
         '1004': '有违禁词',
         '1005': '输入的正文太短，要求超过15个字',
-        '1008': '不支持上传图片的格式',
-        // error from proxy
-        '10000': '授权令牌失效了，<a href="/#/login/">点这里重新授权登录</a>'
+        '1008': '不支持上传图片的格式'
     }
     scope.$on('alert:error', function(e, data) {
       var msg = ERROR[data.code]
       if (!msg) {
         if (data.code) {
-          msg = '你遇到了编号为' + data.code + '的错误"' + data.msg +'", <a href="http://www.douban.com/doumail/write?to=1662222" target="_blank">告诉管理员让他修一修吧。</a>'
+          msg = '你遇到了编号为' + data.code + '的错误"' + data.msg
         } else {
-          msg = '发生了奇怪的错误，可能是服务器不稳定，稍后再试试吧。<a href="http://www.douban.com/doumail/write?to=1662222" target="_blank">告诉管理员</a>'
+          msg = '发生了奇怪的错误，可能是服务器不稳定，稍后再试试吧。<a href="http://www.douban.com/doumail/write?to=1662222" target="_blank">告诉管理员让他修复错误吧。</a>'
         }
       }
       elem.addClass('error').addClass('show').html(msg)

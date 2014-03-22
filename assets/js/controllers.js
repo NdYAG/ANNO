@@ -324,6 +324,7 @@ angular.module('ANNO.controllers', []).
           id: nid
         }).success(function(resp) {
           note = _.pick(resp, 'id', 'chapter', 'page_no', 'privacy', 'content', 'book_id', 'photos', 'last_photo', 'book')
+          note.page_no = note.page_no || null // api returns 0, turn it to null
           note.content = TranslateService.doubanToMarkdown(note.content, note.photos)
           note.privacy = note.privacy == '2'? 'public': 'private'
           $scope.note = note

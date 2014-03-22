@@ -217,6 +217,7 @@ ul.notes{margin:0 -.8em}
 .content blockquote{font-size:16px;padding:.8em 0 .8em 3em;box-sizing:border-box;position:relative;border-left:3px solid #ccc;overflow:hidden;font-style:italic;}
 .content blockquote:before{position:absolute;top:.2em;left:-.1em;font-size:3em;width:1em;height:1em;border-radius:1em;line-height:1.5em;text-align:center;color:#fff;background-color:#dedede;font-style:normal}
 .content pre{padding:1em calc(50% - 300px)}
+.content code{background:#eee;border:1px solid #ccc;border-radius:3px;padding:0 .3em}
 pre{background:transparent}
 code.hljs{background:transparent}
 .global_note .ng-view{margin-top:0;padding-top:50px}

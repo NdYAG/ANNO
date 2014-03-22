@@ -343,8 +343,6 @@ angular.module('ANNO')
             }
           })
           sessionStorage.setItem(STORAGE_NOTE, JSON.stringify(notes))
-
-          increaseNoteCount(note.book_id)
         }
       })
     },

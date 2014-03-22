@@ -5,7 +5,7 @@ section#all-books
     li.book(ng-repeat="book in books")
       div.cover(remote-image='book.images.large')
         a.book-link(link="/{{ user.uid }}/book/{{ book.id }}")
-        span.notes-count {{ book.notes_count }}篇笔记
+        span.notes-count {{ book.notes_count }} 篇笔记
         a.add-note(ng-show='user.is_self', link="/{{ user.uid }}/book/{{ book.id }}/new")
           i.icon-plus
       span.title {{ book.title }}

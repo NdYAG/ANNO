@@ -5,11 +5,15 @@ section#one-note
     time(datetime="{{ note.time }}") {{ note.time | date: note.time : 'longDate'}}
     span.note-privacy(ng-class="{'icon-lock': note.privacy === 1}")
   div.operate
-    a.icon-pen(ng-show="can_operate", link="/note/{{ note.id }}/edit") 编辑
-    a.icon-star-empty(ng-show="!has_starred", ng-click="toggleStar(true)") 收藏
-    a.icon-star(ng-show="has_starred", ng-click="toggleStar(false)") 已收藏
+    a.icon-pen(ng-show="can_operate", link="/note/{{ note.id }}/edit")
+      span 编辑
+    a.icon-star-empty(ng-show="!has_starred", ng-click="toggleStar(true)")
+      span 收藏
+    a.icon-star(ng-show="has_starred", ng-click="toggleStar(false)")
+      span 已收藏
     //- a.icon-evernote(href="javascript:;") 保存到Evernote
-    a.icon-delete(ng-show="can_operate", ng-click="open()") 删除
+    a.icon-delete(ng-show="can_operate", ng-click="open()")
+      span 删除
   previewer(markdown="note.content")
   //- div.share.typo-center
     //- a(href="javascript:void(function(){var d=document,url='http://book.douban.com/annotation/',splits=d.location.href.split('/'),nid=splits[splits.length-1],title=document.querySelector('.meta a').textContent,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e(url+nid)+'&title='+e(title)+'&sel='+e(s)+'&v=1',w=450,h=330,x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width='+w+',height='+h+',left='+(screen.width-w)/2+',top='+(screen.height-h)/2))location.href=r+'&r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()")

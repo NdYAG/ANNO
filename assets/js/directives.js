@@ -309,6 +309,9 @@ angular.module('ANNO.directives', [])
     scope.$on('alert:dismiss', function(e) {
       elem.removeClass('show')
     })
+
+    scope.$on('alert:error:hide', elem.removeClass.bind(elem, 'show'))
+    $rootScope.$on('$routeChangeStart', scope.$emit.bind(scope, 'alert:error:hide'))
   }
 }])
 .directive('colorThief', ['$http', function($http) {

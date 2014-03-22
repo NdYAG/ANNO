@@ -45,7 +45,7 @@ module.exports = function(grunt) {
         options: {
           mangle: false
           //, beautify: {
-          //   beautify: true
+          //  beautify: true
           // }
         },
         files: [{

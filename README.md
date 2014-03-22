@@ -4,7 +4,7 @@
 
 ## 豆瓣读书笔记第三方客户端
 
-这是一个基于Angular开发的Chrome App，可以独立安装在系统中。下载地址：[]()
+这是一个基于Angular开发的Chrome App，可以独立安装在系统中。下载地址：[https://chrome.google.com/webstore/detail/读书笔记/cekpldeffalionmgoedldkdnlcbphamp](https://chrome.google.com/webstore/detail/读书笔记/cekpldeffalionmgoedldkdnlcbphamp)
 
 ## 基本功能
 

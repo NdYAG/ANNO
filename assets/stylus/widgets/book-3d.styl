@@ -57,18 +57,17 @@ cube_h = 400px
     transform rotateY(-180deg) translate3d(0,0,20px)
   .book-right
     transform rotateY(90deg) translate3d(0, 0, 295px)
-  .book-left 
+  .book-left
     transform rotateY(-90deg)
   .book-top
     transform rotateX(90deg)
-  .book-bottom 
+  .book-bottom
 	  transform rotateX(-90deg) translate3d(0,0,390px)
   .book-front
 	  transform translate3d(0,0,20px)
   .book-front, .book-left
     background-size cover
   .book-front
-    background-position center
     box-shadow inset 4px 0 10px rgba(0, 0, 0, 0.1)
     &:before
       content ""
@@ -79,6 +78,27 @@ cube_h = 400px
       width 3px
       background rgba(0, 0, 0, 0.06)
       box-shadow 1px 0 3px rgba(255, 255, 255, 0.1)
+    .book-cover
+      background-size cover
+      content ""
+      position absolute
+      top  0
+      bottom  0
+      left 0
+      right 0
+      background-position center
+      backface-visibility hidden
+      z-index: 10
+    .book-cover-backface
+      backface-visibility hidden
+      content ""
+      position absolute
+      top  0
+      bottom  0
+      left 0
+      right 0
+      background rgba(0, 0, 0, 0.06)
+      transform  rotateY(180deg)
   .book-back
     box-shadow 10px 10px 30px rgba(0, 0, 0, 0.3)
   .book-left
@@ -92,6 +112,7 @@ cube_h = 400px
       top 0
       left 0
       background-color rgba(0, 0, 0, .2)
+      backface-visibility hidden
     .book-title
       -webkit-writing-mode vertical-rl
       width cube_w
@@ -111,7 +132,6 @@ cube_h = 400px
     text-align center
     transform translate3d(0,0,19px)
     background #f1f1f1
-    opacity .9
     .page-content
       opacity 0
       position relative
@@ -142,11 +162,9 @@ cube_h = 400px
     transition-transform 1s
     transform-origin top left
     cursor pointer
+    transform-style preserve-3d
     &.opened
       transform translate3d(0,0,20px) rotateY(-100deg)
       & + .book-page
         .page-content
           opacity 1
-      & ~ .book-left
-        .book-title
-          opacity 0

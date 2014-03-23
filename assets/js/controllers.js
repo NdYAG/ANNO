@@ -278,37 +278,21 @@ angular.module('ANNO.controllers', []).
       })
     }
   }])
-  .controller('FriendsCtrl', ['$scope', '$http', 'UserService', function($scope, $http, UserService) {
+  .controller('FriendsCtrl', ['$scope', '$http', 'FriendsService', function($scope, $http, FriendsService) {
     $scope.$emit('page:change', 'friends')
-    var start = 0
-      , count = 50
-      , friends = []
-    UserService.login().then(function(user) {
-      function fetchFriendsList() {
-        $http({
-          method: 'GET',
-          url: '/api/shuo/v2/users/' + user.uid + '/following',
-          params: {
-            start: start,
-            count: count
-          },
-          cache: true
-        }).success(function(resp) {
-          Array.prototype.push.apply(friends, _.filter(resp, function(u) { return u.type == 'user' }))
-          $scope.friends = friends
-          start += count
-          if (!resp.length) {
-            $scope.and_more = false
-          }
-        })
-      }
-      fetchFriendsList()
-      $scope.and_more = true
-      $scope.showMoreFriends = function() {
-        fetchFriendsList()
-      }
 
-    })
+    $scope.showMoreFriends = function() {
+      FriendsService.getMore().then(function(friends) {
+        $scope.and_more = FriendsService.has_more
+      })
+    }
+
+    $scope.friends = FriendsService.getAllLocal()
+    $scope.and_more = FriendsService.has_more
+
+    if (!$scope.friends.length) {
+      $scope.showMoreFriends()
+    }
   }])
   .controller('EditorCtrl', ['$scope', '$routeParams', '$http', '$location', 'UserService', 'BookService', 'NoteService', 'TranslateService', function($scope, $routeParams, $http, $location, UserService, BookService, NoteService, TranslateService) {
     $scope.$emit('page:change', 'editor')

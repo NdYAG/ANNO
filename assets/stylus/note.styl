@@ -11,7 +11,7 @@ body
     padding-top 50px
 
 #one-note
-  margin 0
+  margin 3em 0
   h1
     @extends $center
   pre
@@ -40,6 +40,9 @@ body
       color #fff
 
 .operate
+  position: absolute
+  top: 0
+  right: 0
   padding 1em
   margin 0 auto
   padding-left calc(50% \- 300px)
@@ -57,11 +60,15 @@ body
       &:hover
         color #48b449
     &.icon-pen
+      &:before
+        vertical-align: middle
       &:hover
         color #0E90D2
     &.icon-star, &.icon-star-empty
       &:hover
         color #f39c12
     &.icon-delete
+      &:before
+        vertical-align: middle
       &:hover
         color #DD514C

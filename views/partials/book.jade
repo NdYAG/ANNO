@@ -6,7 +6,7 @@ section#one-book
     div.book-cube(color-thief, image="book_cover", ng-model="dominateColor", ng-class="{ 'sided': book_sided }")
       div.book-front(ng-class="{ 'opened': book_opened }", ng-click="openBook()")
         .book-cover-backface(ng-style="{ 'background-color': dominateColor.background }")
-        .book-cover(remote-image="book_cover")
+        .book-cover-frontface(remote-image="book_cover")
       div.book-page(ng-mouseleave="openBook()")
         div.page-content
           a.icon-feather(link="/{{ user.uid }}/book/{{ book.id }}/new")写新笔记

@@ -57,6 +57,19 @@ module.exports = function(grunt) {
         }]
       }
     },
+    compress: {
+      app: {
+        options: {
+          archive: 'anno.zip'
+        },
+        files: [{
+          expand: true,
+          cwd: "public/",
+          src: ["**/*"],
+          dest: "/"
+        }]
+      }
+    },
     watch: {
       jade: {
         files: ['views/partials/**/*.jade', 'views/index.jade'],
@@ -77,10 +90,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus')
   grunt.loadNpmTasks('grunt-contrib-concat')
   grunt.loadNpmTasks('grunt-contrib-uglify')
+  grunt.loadNpmTasks('grunt-contrib-compress')
   grunt.loadNpmTasks('grunt-contrib-watch')
 
   grunt.registerTask('html', ['jade'])
   grunt.registerTask('css', ['stylus'])
   grunt.registerTask('js', ['uglify'])
   grunt.registerTask('default', ['jade', 'js', 'stylus'])
+  grunt.registerTask('release', ['jade', 'js', 'stylus', 'compress'])
 }

@@ -41,12 +41,24 @@ module.exports = function(grunt) {
       }
     },
     uglify: {
-      dist: {
+      development: {
+        options: {
+          mangle: false,
+          beautify: {
+            beautify: true
+          }
+        },
+        files: [{
+          expand: true,
+          cwd: "assets/js",
+          src: ["*.js", "!*.sample.js"],
+          dest: "public/js",
+          ext: ".min.js"
+        }]
+      },
+      product: {
         options: {
           mangle: false
-          //, beautify: {
-          //  beautify: true
-          // }
         },
         files: [{
           expand: true,
@@ -68,7 +80,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: ['assets/js/**/*.js'],
-        tasks: ['uglify']
+        tasks: ['uglify:development']
       }
     }
   })
@@ -81,6 +93,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('html', ['jade'])
   grunt.registerTask('css', ['stylus'])
-  grunt.registerTask('js', ['uglify'])
-  grunt.registerTask('default', ['jade', 'js', 'stylus'])
+  grunt.registerTask('js:development', ['uglify:development'])
+  grunt.registerTask('js:product', ['uglify:product'])
+
+  grunt.registerTask('default', ['jade', 'js:development', 'stylus'])
+  grunt.registerTask('publish', ['jade', 'js:product', 'stylus'])
 }

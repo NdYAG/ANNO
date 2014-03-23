@@ -36,7 +36,11 @@ module.exports = function(grunt) {
     concat: {
       codemirror: {
         // html mode is htmlmixed mode
-        src: ['bower_components/codemirror/lib/codemirror.js', 'bower_components/codemirror/addon/display/placeholder.js', 'bower_components/codemirror/addon/runmode/runmode.js', 'bower_components/codemirror/mode/python/python.js', 'bower_components/codemirror/mode/commonlisp/commonlisp.js', 'bower_components/codemirror/mode/html/html.js', 'bower_components/codemirror/mode/clike/clike.js', 'bower_components/codemirror/mode/php/php.js', 'bower_components/codemirror/mode/sass/sass.js', 'bower_components/codemirror/mode/sql/sql.js', 'bower_components/codemirror/mode/perl/perl.js', 'bower_components/codemirror/mode/commonlisp/commonlisp.js'],
+        src: ['bower_components/codemirror/lib/codemirror.js', 'bower_components/codemirror/addon/display/placeholder.js', 'bower_components/codemirror/addon/runmode/runmode.js', 'bower_components/codemirror/mode/python/python.js', 'bower_components/codemirror/mode/commonlisp/commonlisp.js', 'bower_components/codemirror/mode/html/html.js', 'bower_components/codemirror/mode/clike/clike.js', 'bower_components/codemirror/mode/php/php.js', 'bower_components/codemirror/mode/sass/sass.js', 'bower_components/codemirror/mode/sql/sql.js', 'bower_components/codemirror/mode/perl/perl.js', 'bower_components/codemirror/mode/commonlisp/commonlisp.js',
+          'bower_components/codemirror/mode/javascript/javascript.js',
+          'bower_components/codemirror/mode/markdown/markdown.js',
+          'bower_components/codemirror/mode/gfm/gfm.js',
+          'bower_components/codemirror/mode/clike/clike.js'],
         dest: 'assets/lib/codemirror/codemirror.js'
       }
     },

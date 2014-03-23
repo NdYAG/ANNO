@@ -297,9 +297,6 @@ angular.module('ANNO')
   }
 })
 .factory('NoteService', ['$http', '$rootScope', 'UserService', function($http, $rootScope, UserService) {
-  // UserService.login().then(function(user) {
-
-  // })
   var user = $rootScope.user
     , id = user.id
     , STORAGE_BOOK = id + '_books'
@@ -380,11 +377,11 @@ angular.module('ANNO')
     }
   }
 }])
-.factory('BookService', ['$q', '$http', 'UserService', function($q, $http, UserService) {
+.factory('BookService', ['$q', '$http', '$rootScope', function($q, $http, $rootScope) {
   // fetch book from sessionStorage or from $http
   return {
     get: function(bid) {
-      var user = UserService.login()
+      var user = $rootScope.user
         , id = user.id
 
       var defer = $q.defer()
@@ -404,7 +401,6 @@ angular.module('ANNO')
       return defer.promise
     }
   }
-
 }])
 .factory('HttpLoadingIntercepter', ['$q', '$rootScope', function($q, $rootScope) {
   var n_loading = 0

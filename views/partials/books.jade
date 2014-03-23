@@ -5,9 +5,12 @@ section#all-books
     li.book(ng-repeat="book in books")
       div.cover(remote-image='book.images.large')
         a.book-link(link="/{{ user.uid }}/book/{{ book.id }}")
-        span.notes-count {{ book.notes_count }} 篇笔记
+        div.notes-count 
+          span.count {{ book.notes_count }}
+          span.count-text 篇笔记
         a.add-note(ng-show='user.is_self', link="/{{ user.uid }}/book/{{ book.id }}/new")
           i.icon-plus
+          span 写新笔记
       span.title {{ book.title }}
       span.author {{ book.author[0] }}
     li.book.empty(ng-show="user.is_self", ng-click="searchBook()")

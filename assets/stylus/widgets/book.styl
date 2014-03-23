@@ -42,9 +42,9 @@ book_h = 160px
         background-color rgba(0, 0, 0, .65)
       .add-note
         display block
-        bottom .5em
+        bottom .7em
       .notes-count
-        top 1em
+        top 0
   .title, .author
     display block
     width book_w
@@ -55,39 +55,49 @@ book_h = 160px
     font-size .9em
     color #ccc
   .add-note
-    border 3px solid #fff
+    border 2px solid #fff
     color #fff
-    width 1.8em
-    height 1.8em
     font-size 1.5em
     text-align center
     line-height 1.8em
-    border-radius 1em
+    border-radius 999px
     position absolute
     z-index 2
     bottom -3em
-    right .5em
     transition bottom .5s
-    transform translateZ(0)
+    padding 0 0.5em
+    left  50%
+    transform translateZ(0) translateX(-50%)
+    white-space nowrap
     &:hover
       background #fff
       color #111
     .icon-plus
-      font-size: 0.7em
-      line-height: 2.7em
-      display: block
-      margin-left: 0.07em
+      font-size 0.7em
+      line-height 2.7em
+      margin-left 0.07em
+      vertical-align middle
+    span
+      font-size  0.6em
+      margin-left .4em
+      vertical-align middle
   .notes-count
     position absolute
     z-index 2
     color #fff
-    top -2em
+    top -6em
     display block
     width 100%
     text-align center
     transition top .5s
     transform translateZ(0)
     pointer-events none
+    .count
+      display block
+      font-size: 3.6em
+      font-family: Georgia
+    .count-text
+      font-size: 12px
 
 
 .book.empty

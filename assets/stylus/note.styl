@@ -47,6 +47,8 @@ body
   margin 0 auto
   padding-left calc(50% \- 300px)
   margin .3em 0 1.2em
+  transition opacity .5s, top .5s
+  opacity: 1
   a
     color #808080
     margin-right 1em
@@ -72,3 +74,6 @@ body
         vertical-align: middle
       &:hover
         color #DD514C
+  &.hide
+    top: -3em
+    opacity: 0

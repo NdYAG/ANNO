@@ -163,7 +163,10 @@ angular.module('ANNO.controllers', []).
 
       $scope.book_opened = 0
       $scope.openBook = function() {
-        $scope.book_opened ^= 1
+        $scope.book_opened = 1
+      }
+      $scope.closeBook = function() {
+        $scope.book_opened = 0
       }
       $scope.book_sided = false
       $scope.$watch('dominateColor', function(colors) {

@@ -84,12 +84,9 @@ angular.module('ANNO.controllers', []).
         $scope.start_book = books[start_bid]
         $scope.start_note = notes[start_nid]
 
-        _.sortBy(notes, function(note) {
-          return new Date(note.time)
-        })
-        $scope.recent_books = _.map(notes.slice(0, 5), function(note) {
-          return books[note.book_id]
-        })
+        // find first five unique
+        var note_group = _.groupBy(notes, function(note) { return note.book_id })
+        $scope.recent_books = _.map(_.sortBy(_.values(note_group), function(notes) {return new Date(notes[0].time) }).reverse().slice(0,5), function(notes) {return books[notes[0].book_id] })
 
       })
     })

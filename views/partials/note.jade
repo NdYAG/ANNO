@@ -11,7 +11,7 @@ section#one-note
       span 收藏
     a.icon-star(ng-show="has_starred", ng-click="toggleStar(false)")
       span 已收藏
-    //- a.icon-evernote(href="javascript:;") 保存到Evernote
+    a.icon-evernote(ng-show="user.evernote", ng-click="saveToEvernote()") 保存到Evernote
     a.icon-delete(ng-show="can_operate", ng-click="open()")
       span 删除
   previewer(markdown="note.content")

@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('ANNO')
-.factory('AuthService', ['$http', '$location', function($http, $location) {
+.factory('AuthService', ['$rootScope', '$http', '$q', '$location', function($rootScope, $http, $q, $location) {
   return {
     auth: function() {
       DoubanAuth.getToken(function(error, access_token) {
@@ -13,16 +13,42 @@ angular.module('ANNO')
             'Authorization': 'Bearer ' + access_token
           }
         }).success(function(resp) {
-          chrome.storage.local.set({'logintoken': JSON.stringify({
+          chrome.storage.local.set({'logintoken': {
             id: resp.id,
             uid: resp.uid,
             avatar: resp.large_avatar,
             token: access_token
-          })})
+          }})
           $location.path('/')
         })
 
       })
+    },
+    evernote: function(callback) {
+      EvernoteAuth.getToken(function(error, res) {
+        if (!res.oauth_token) {
+          return
+        }
+        if ($rootScope.user) {
+          // set and save
+          chrome.storage.local.set({'logintoken': _.extend($rootScope.user, {
+            evernote: res
+          })})
+        }
+        callback && callback()
+      })
+    },
+    isEvernoteAuthed: function() {
+      var defer = new $q.defer()
+      chrome.storage.local.get('logintoken', function(res) {
+        var evernote = res.logintoken.evernote
+        if (evernote && evernote.oauth_token && (new Date) < evernote.edam_expires) {
+          defer.resolve()
+        } else {
+          defer.reject()
+        }
+      })
+      return defer.promise
     }
   }
 }])
@@ -80,7 +106,7 @@ angular.module('ANNO')
       var defer = new $q.defer()
       chrome.storage.local.get('logintoken', function(resp) {
         if (resp.logintoken) {
-          $rootScope.user = JSON.parse(resp.logintoken)
+          $rootScope.user = resp.logintoken
           defer.resolve($rootScope.user)
         } else {
           defer.reject()
@@ -544,6 +570,52 @@ angular.module('ANNO')
         } else {
           callback([])
         }
+      })
+    }
+  }
+}])
+.factory('EvernoteService', ['$rootScope', function($rootScope) {
+  var user = $rootScope.user
+    , conf = user.evernote
+  var noteStoreURL = conf.edam_noteStoreUrl
+    , authenticationToken = conf.oauth_token
+    , noteStoreTransport = new Thrift.BinaryHttpTransport(noteStoreURL)
+    , noteStoreProtocol = new Thrift.BinaryProtocol(noteStoreTransport)
+    , noteStore = new NoteStoreClient(noteStoreProtocol)
+  return {
+    listNoteBooks: function(callback) {
+      noteStore.listNotebooks(authenticationToken, function (notebooks) {
+        console.log(notebooks)
+        callback && callback(notebooks)
+      }, function onerror(error) {
+        console.log(error)
+      })
+    },
+    createNoteBook: function(callback) {
+      this.listNoteBooks(function(notebooks) {
+        var notebook = _.filter(notebooks, function(nb) {
+          return nb.name == "读书笔记"
+        })
+        if (!notebook.length) {
+          var nnb = new Notebook()
+          nnb.name = "读书笔记"
+          noteStore.createNotebook(authenticationToken, nnb, function() {
+            console.log(arguments)
+            callback && callback()
+          })
+        } else {
+          callback && callback()
+        }
+      })
+    },
+    save: function(title, content_node, callback) {
+      this.createNoteBook(function() {
+        var note = new Note
+        note.title = title
+        note.content = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>' + enml.html2enml(content_node[0]) + '</en-note>'
+        noteStore.createNote(authenticationToken, note, function() {
+          console.log(arguments)
+        })
       })
     }
   }

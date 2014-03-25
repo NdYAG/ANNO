@@ -42,7 +42,7 @@ angular.module('ANNO.controllers', []).
       })
     }
   }])
-  .controller('InfoCtrl', ['$scope', 'UserService', 'SerializeService', function($scope, UserService, SerializeService) {
+  .controller('InfoCtrl', ['$scope', 'AuthService', 'UserService', 'SerializeService', function($scope, AuthService, UserService, SerializeService) {
     $scope.$emit('page:change', 'info')
 
     UserService.getUserInfo().then(function(user) {
@@ -90,6 +90,16 @@ angular.module('ANNO.controllers', []).
 
       })
     })
+
+    AuthService.isEvernoteAuthed().then(function() {
+      $scope.evernote_bound = true
+    })
+    $scope.authEvernote = function() {
+      AuthService.evernote(function() {
+        $scope.evernote_bound = true
+        $scope.$apply()
+      })
+    }
   }])
   .controller('BooksCtrl', ['$scope', '$routeParams','$location', '$modal', '$timeout', 'UserService', 'SerializeService', function($scope, $routeParams, $location, $modal, $timeout, UserService, SerializeService) {
     $scope.$emit('page:change', 'books')
@@ -215,7 +225,7 @@ angular.module('ANNO.controllers', []).
     })
 
   }])
-  .controller('NoteCtrl', ['$scope', '$http', '$routeParams', '$modal', '$location', 'UserService', 'NoteService', 'TranslateService', 'FavouriteService', function($scope, $http, $routeParams, $modal, $location, UserService, NoteService, TranslateService, FavouriteService) {
+  .controller('NoteCtrl', ['$scope', '$http', '$routeParams', '$modal', '$location', 'UserService', 'NoteService', 'TranslateService', 'FavouriteService', 'EvernoteService', function($scope, $http, $routeParams, $modal, $location, UserService, NoteService, TranslateService, FavouriteService, EvernoteService) {
     $scope.$emit('page:change', 'note')
 
     var note
@@ -245,6 +255,10 @@ angular.module('ANNO.controllers', []).
             $scope.has_starred = state.is_starred
             $scope.$apply()
           })
+        }
+        $scope.saveToEvernote = function() {
+          EvernoteService.save(note.chapter || ($scope.book.title + '第' + note.page_no + '页'),
+                               $('.content'))
         }
       })
 

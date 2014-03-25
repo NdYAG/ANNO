@@ -12,3 +12,21 @@
   .books
     .add-note
       font-size 1em
+  & > section
+    h1
+      font-size 1.32em
+    &.statistic, &.account
+      display table-cell
+      h1
+        margin-top 0
+    &.account
+      padding-left 2em
+      a
+        font-size 3em
+        // color #4B4D4E
+        color #757778
+        &:hover, &.active
+          // color #5FB336
+          color lightseagreen
+        &.active
+          cursor default

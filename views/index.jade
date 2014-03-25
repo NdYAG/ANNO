@@ -12,7 +12,7 @@ block content
       li(ng-show="lastBook && user")
         a(link="/{{ author.uid }}/book/{{ lastBook.id }}") 返回 {{ lastBook.title }}
       li
-        a(link="/{{ user.uid }}/info") 统计
+        a(link="/{{ user.uid }}/info") 个人
       li
         a(link="/friends") 友邻笔记
       li
@@ -58,10 +58,13 @@ block scripts
   script(src="/lib/codemirror/codemirror.min.js")
   script(src="/lib/marked/marked.min.js")
   script(src="/lib/color-thief/color-thief.min.js")
+  script(src="/lib/evernote/evernote-sdk.min.js")
 
   script(src="/js/config.min.js")
   script(src="/js/douban-auth.min.js")
+  script(src="/js/evernote-auth.min.js")
   script(src="/js/app.min.js")
+  script(src="/js/enml.min.js")
   script(src="/js/controllers.min.js")
   script(src="/js/services.min.js")
   script(src="/js/directives.min.js")

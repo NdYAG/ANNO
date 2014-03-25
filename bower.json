@@ -25,7 +25,8 @@
     "marked": "*",
     "codemirror": "*",
     "color-thief": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "evernote": "~1.25.2"
   },
   "resolutions": {
     "angular": "~1.2.13"

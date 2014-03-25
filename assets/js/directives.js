@@ -275,7 +275,7 @@ angular.module('ANNO.directives', [])
 .directive('alert', ['$rootScope', '$timeout', function($rootScope, $timeout) {
   return function(scope, elem, attrs) {
     var ERROR = {
-        '103': '访问令牌出错，需要<a href="/#/login">重新授权登录</a>',
+        '103': '访问令牌出错，需要<a link="/login">重新授权登录</a>',
         '111': '访问太频繁，超出第三方应用限额',
         '999': '未知错误',
         '1000': '这篇笔记是私密的，只能阅读到简介部分，不能显示全文',

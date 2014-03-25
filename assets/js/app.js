@@ -16,6 +16,7 @@ angular.module('ANNO', [
   'ngCookies',
   'ANNO.controllers',
   'ANNO.directives',
+  'ANNO.ui-directives',
   'ui.bootstrap'
 ]).config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/login', {

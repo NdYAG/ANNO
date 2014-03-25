@@ -43,8 +43,10 @@ book_h = 160px
       .add-note
         display block
         bottom .7em
+        opacity 1
       .notes-count
         top 0
+        opacity 1
   .title, .author
     display block
     width book_w
@@ -64,7 +66,8 @@ book_h = 160px
     position absolute
     z-index 2
     bottom -3em
-    transition bottom .5s
+    opacity  0
+    transition bottom .5s, opacity .2s
     padding 0 0.5em
     left  50%
     transform translateZ(0) translateX(-50%)
@@ -86,11 +89,12 @@ book_h = 160px
     position absolute
     z-index 2
     color #fff
-    top -6em
     display block
     width 100%
     text-align center
-    transition top .5s
+    top -6em
+    opacity  0
+    transition top .5s, opacity .2s
     transform translateZ(0)
     pointer-events none
     .count

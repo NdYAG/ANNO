@@ -121,8 +121,17 @@ module.exports = function(grunt) {
             cwd: 'assets/resource/',
             src: '**',
             dest: 'public/'
-          },
+          }
         ]
+      },
+      develop: {
+        files: [{
+          expand: true,
+          cwd: "assets/js",
+          src: ["**.js", "!*.sample.js"],
+          dest: "public/js",
+          ext: ".min.js"
+        }]
       }
     },
     watch: {
@@ -136,7 +145,7 @@ module.exports = function(grunt) {
       },
       'js': {
         files: ['assets/js/**/*.js'],
-        tasks: ['uglify:develop']
+        tasks: ['copy:develop']
       },
       'js:lib': {
         files: ['assets/lib/**/*.js'],
@@ -144,7 +153,7 @@ module.exports = function(grunt) {
       },
       copy: {
         files: ['assets/resource/**'],
-        tasks: ['copy']
+        tasks: ['copy:main']
       }
     }
   })
@@ -161,7 +170,7 @@ module.exports = function(grunt) {
   grunt.registerTask('css', ['stylus'])
 
   grunt.registerTask('js:lib', ['concat', 'uglify:lib'])
-  grunt.registerTask('js:develop', ['js:lib', 'uglify:develop'])
+  grunt.registerTask('js:develop', ['js:lib', 'copy:develop'])
   grunt.registerTask('js:release', ['js:lib', 'uglify:release'])
 
   grunt.registerTask('default', ['jade', 'js:develop', 'stylus', 'copy'])

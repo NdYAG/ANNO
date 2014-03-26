@@ -100,7 +100,7 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
       })
     }
   }])
-  .controller('BooksCtrl', ['$scope', '$routeParams','$location', '$modal', '$timeout', 'UserService', 'SerializeService', function($scope, $routeParams, $location, $modal, $timeout, UserService, SerializeService) {
+  .controller('BooksCtrl', ['$scope', '$routeParams', '$modal', '$timeout', 'UserService', 'SerializeService', function($scope, $routeParams, $modal, $timeout, UserService, SerializeService) {
     $scope.$emit('page:change', 'books')
 
     // Save user data after login
@@ -118,17 +118,11 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
       $scope.searchBook = function() {
         var modalInstance = $modal.open({
           templateUrl: 'modalSearchBook.html',
-          controller: function($scope, $modalInstance) {
-            $scope.ok = function (bid) {
-              $location.path('/' + user.uid + '/book/' + bid +'/new')
-              $modalInstance.close()
+          controller: 'SearchBookCtrl',
+          resolve: {
+            'user': function() {
+              return user
             }
-            $scope.cancel = function () {
-              $modalInstance.dismiss('cancel')
-            }
-          },
-          resolve: function() {
-
           }
         }).opened.then(function() {
           $timeout(function() {
@@ -400,8 +394,8 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
       $scope.notes = notes
     })
   }])
-  .controller('SearchBookCtrl', ['$scope', '$http', 'BookService', function($scope, $http, BookService) {
-    $scope.searchBook = function(query) {
+  .controller('SearchBookCtrl', ['$scope', '$modalInstance', '$location', '$http', 'BookService', 'user', function($scope, $modalInstance, $location, $http, BookService, user) {
+    $scope.searchBook = function(query) { // search by keyword
       if (!query.match(/^\d{8}$/)) {
         $http.get('/api/v2/book/search', {
           params: {
@@ -414,9 +408,9 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
             $scope.selectedBook = res.books[0]
           }
         })
-      } else {
+      } else { // fetch book by subject id
         BookService.get(query).then(function(book) {
-          $scope.selectedIndex = null
+          $scope.selectedIndex = 0
           $scope.selectedBook = book
           $scope.books = [book]
         })
@@ -426,6 +420,13 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
     $scope.selectBook = function($index, book) {
       $scope.selectedIndex = $index
       $scope.selectedBook = book
+    }
+    $scope.ok = function (bid) {
+      $location.path('/' + user.uid + '/book/' + bid +'/new')
+      $modalInstance.close()
+    }
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel')
     }
   }])
   .controller('EvernoteCtrl', ['$scope', '$rootScope', '$modalInstance', 'EvernoteService', 'note', 'book', function($scope, $rootScope, $modalInstance, EvernoteService, note, book) {

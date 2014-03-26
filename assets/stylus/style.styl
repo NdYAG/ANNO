@@ -67,11 +67,11 @@ li.book
 
 @import "widgets/book.styl"
 
-.modal-search
-  .modal-footer
-    div:first-child
-      text-align left
-      color #999
+.modal-footer
+  div:first-child
+    float left
+    text-align left
+    color #999
 
 #new-book-name
   border 1px solid #eee
@@ -215,10 +215,6 @@ ul.notes
       outline 0
       &:focus
         border-color #999
-  .modal-footer
-    .status
-      float left
-      text-align left
 
 // editor
 @import "edit.styl"

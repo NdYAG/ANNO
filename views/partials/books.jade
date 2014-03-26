@@ -18,7 +18,7 @@ section#all-books
   p(ng-show="tipVisible") 还没有写过笔记
 
 script(type="text/ng-template", id="modalSearchBook.html")
-  div.modal-search(ng-controller="SearchBookCtrl")
+  div.modal-search
     div.modal-header
       h3 给一本书写笔记
     div.modal-body
@@ -36,5 +36,5 @@ script(type="text/ng-template", id="modalSearchBook.html")
     div.modal-footer
       div.selected-bookname {{ selectedBook.title }}
       div.buttons-group
-        button.button-primary(ng-click="ok(selectedBook.id)") 开始写
+        button.button-primary(ng-click="ok(selectedBook.id)", ng-disabled="!selectedBook") 开始写
         button.button-default(ng-click="cancel()") 取消

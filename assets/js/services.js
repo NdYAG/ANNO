@@ -431,6 +431,7 @@ angular.module('ANNO')
 .factory('FriendsService', ['$q', '$http', '$rootScope', function($q, $http, $rootScope) {
 
   var localData
+    , start = 0
     , count = 50
     , has_more = true
 
@@ -473,8 +474,9 @@ angular.module('ANNO')
     has_more: has_more,
     getAllLocal: getAllLocal,
     getMore: function() {
-      var start = getAllLocal().length
-      return fetchFriendsList(start, count)
+      return fetchFriendsList(start, count).then(function() {
+        start += count
+      })
     }
   }
 }])

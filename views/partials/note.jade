@@ -42,7 +42,7 @@ section#one-note
             创建新笔记本
           input(ng-show="choice_notebook == 'new'", type="text", placeholder="输入新笔记本名", ng-model="new_notebook")
       div.modal-footer
-        span.status
+        div.status {{ status }}
         div.buttons-group
           button.button-primary(ng-click="ok(choice_notebook, selectedNotebook, new_notebook)") 保存
           button.button-default(ng-click="cancel()") 取消

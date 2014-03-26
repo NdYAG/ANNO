@@ -13,7 +13,6 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
       $scope.asideVisible ^= 1
     }
     $scope.$on('$routeChangeStart', function() {
-      // $scope.user = null
       $scope.lastBook = null
     })
     $scope.$on('nav:lastBook', function(e, author, book) {
@@ -259,34 +258,13 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
         $scope.popupEvernote = function() {
           var modalInstance = $modal.open({
             templateUrl: 'modalEvernote.html',
-            controller: function($scope, $modalInstance) {
-              EvernoteService.listNoteBooks(function(res) {
-                $scope.notebooks = Array.prototype.slice.call(res, 0) // [{name: ,quid:}]
-                $scope.selectedNotebook = $scope.notebooks[0]
-                $scope.$apply()
-              })
-              $scope.choice_notebook = 'exist'
-              $scope.ok = function(choice, existbook, newbook) {
-                if (choice == 'exist') {
-                  EvernoteService.save(note.chapter || ($scope.book.title + '第' + note.page_no + '页')
-                                     , $('.content')
-                                     , existbook.guid
-                                     , function() {
-                                       $modalInstance.close()
-                                     })
-                } else if (choice == 'new') {
-                  EvernoteService.createNoteBook(newbook, function(res) {
-                    EvernoteService.save(note.chapter || ($scope.book.title + '第' + note.page_no + '页')
-                                        , $('.content')
-                                        , res.guid
-                                        , function() {
-                                          $modalInstance.close()
-                                        })
-                  })
-                }
-              }
-              $scope.cancel = function() {
-                $modalInstance.close()
+            controller: 'EvernoteCtrl',
+            resolve: {
+              note: function() {
+                return note
+              },
+              book: function() {
+                return $scope.book
               }
             }
           })
@@ -448,5 +426,56 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
     $scope.selectBook = function($index, book) {
       $scope.selectedIndex = $index
       $scope.selectedBook = book
+    }
+  }])
+  .controller('EvernoteCtrl', ['$scope', '$rootScope', '$modalInstance', 'EvernoteService', 'note', 'book', function($scope, $rootScope, $modalInstance, EvernoteService, note, book) {
+    var STATUS = {
+      'NOTEBOOK': {
+        'PENDING': '正在获取Evernote笔记本列表...',
+        'SUCCESS': '',
+        'FAIL': '与Evernote服务器通信失败，请检查Internet是否正常。'
+      },
+      'NOTE': {
+        'PENDING': '正在保存',
+        'SUCCESS': '',
+        'FAIL': '保存失败，请检查Internet是否正常，或者关闭窗口重试一次。'
+      }
+    }
+    $scope.status = STATUS.NOTEBOOK.PENDING
+    EvernoteService.listNoteBooks(function(res) {
+      $scope.notebooks = Array.prototype.slice.call(res, 0) // [{name: ,quid:}]
+      $scope.selectedNotebook = $scope.notebooks[0]
+      $scope.status = STATUS.NOTEBOOK.SUCCESS
+      $scope.$apply()
+    }, function() {
+      $scope.status = STATUS.NOTEBOOK.FAIL
+      $scope.$apply()
+    })
+    $scope.choice_notebook = 'exist'
+
+    function saveNoteTo(notebook) {
+      EvernoteService.save(note.chapter || (book.title + '第' + note.page_no + '页')
+                          , $('.content')
+                          , notebook.guid
+                          , function() {
+                            $rootScope.$broadcast('alert:success', '保存成功 :)')
+                            $modalInstance.close()
+                          }
+                          , function(msg) {
+                            $scope.status = STATUS.NOTE.FAIL + (msg && ('错误:' + msg + ' 告知开发者让他修复吧:)'))
+                            $scope.$apply()
+                          })
+    }
+    $scope.ok = function(choice, existbook, newbook) {
+      if (choice == 'exist') {
+        saveNoteTo(existbook)
+      } else if (choice == 'new') {
+        EvernoteService.createNoteBook(newbook, function(newbook) {
+          saveNoteTo(newbook)
+        })
+      }
+    }
+    $scope.cancel = function() {
+      $modalInstance.close()
     }
   }])

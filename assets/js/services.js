@@ -585,11 +585,11 @@ angular.module('ANNO')
     , noteStoreProtocol = new Thrift.BinaryProtocol(noteStoreTransport)
     , noteStore = new NoteStoreClient(noteStoreProtocol)
   return {
-    listNoteBooks: function(callback) {
+    listNoteBooks: function(done, fail) {
       noteStore.listNotebooks(authenticationToken, function (notebooks) {
-        callback && callback(notebooks)
+        done && done(notebooks)
       }, function onerror(error) {
-        console.log(error)
+        fail(error)
       })
     },
     createNoteBook: function(name, callback) {
@@ -608,13 +608,17 @@ angular.module('ANNO')
         }
       })
     },
-    save: function(title, content_node, notebook_id, callback) {
+    save: function(title, content_node, notebook_id, done, fail) {
       var note = new Note
       note.title = title
       note.content = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>' + enml.html2enml(content_node[0]) + '</en-note>'
       note.notebookGuid = notebook_id
-      noteStore.createNote(authenticationToken, note, function() {
-        callback && callback()
+      noteStore.createNote(authenticationToken, note, function(res) {
+        if (res.errorCode) {
+          fail && fail(res.parameter)
+        } else {
+          done && done()
+        }
       })
     }
   }

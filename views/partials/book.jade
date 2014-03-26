@@ -23,8 +23,8 @@ section#one-book
     header
       h2 共{{ book.notes_count }}篇笔记
       nav.order.button-group()
-        button(ng-click="order='time'; reverse=true", ng-class="{'active': (order=='time')}") 最新
-        button(ng-click="order='page_no'; reverse=false", ng-class="{'active': (order=='page_no')}") 页码
+        button.button-plain(ng-click="order='time'; reverse=true", ng-class="{'active': (order=='time')}") 最新
+        button.button-plain(ng-click="order='page_no'; reverse=false", ng-class="{'active': (order=='page_no')}") 页码
     ul.notes
       li.note(ng-repeat="note in book.notes | orderBy: order : reverse")
         a.note-mask(link="/note/{{ note.id }}")

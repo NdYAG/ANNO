@@ -1,4 +1,4 @@
-button
+.button-plain
   background #eee
   color #777
   padding .4em 1.2em
@@ -14,9 +14,14 @@ button
 $basic_button
   padding .4em 1.2em
   border 0
+  outline 0
   border-radius 0
   box-shadow none
   cursor pointer
+  &:active, &:focus
+    box-shadow inset 0 1px 2px #ddd
+  &:hover
+    opacity .9
 
 .button-default
   @extends $basic_button
@@ -36,6 +41,7 @@ $basic_button
   border 1px solid #e74c3c
 
 .button-radio
+  background #eee
   @extends $basic_button
   border-radius 3px
   &.active, &:active, &:focus

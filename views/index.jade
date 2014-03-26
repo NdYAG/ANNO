@@ -39,6 +39,26 @@ block content
       div.modal-footer.buttons-group
           button.button-warning(ng-click="ok()") 注销
           button.button-default(ng-click="cancel()") 取消
+  script(type="text/ng-template", id="modalEvernote.html")
+    div.modal-evernote
+      div.modal-header
+        h3 保存到Evernote/印象笔记
+      div.modal-body
+        div.row
+          label
+            input(type="radio", ng-model="choice_notebook", value="exist")
+            保存已有笔记本
+          select(ng-show="choice_notebook == 'exist'", ng-model="selectedNotebook", ng-options="nb.name for nb in notebooks")
+        div.row
+          label
+            input(type="radio", ng-model="choice_notebook", value="new")
+            创建新笔记本
+          input(ng-show="choice_notebook == 'new'", type="text", placeholder="输入新笔记本名", ng-model="new_notebook")
+      div.modal-footer
+        div.status {{ status }}
+        div.buttons-group
+          button.button-primary(ng-click="ok(choice_notebook, selectedNotebook, new_notebook)") 保存
+          button.button-default(ng-click="cancel()") 取消
     
 block scripts
   script(src="lib/underscore/underscore.min.js")

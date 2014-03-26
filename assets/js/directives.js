@@ -348,7 +348,7 @@ angular.module('ANNO.directives', [])
   }
 }])
 // packaged app specific directive
-.directive("link", function ($location, $window) {
+.directive("link", function ($location) {
   return function (scope, element, attrs) {
     element.bind("click", function () {
       scope.$apply($location.path(attrs.link))

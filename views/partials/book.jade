@@ -46,6 +46,8 @@ script(type="text/ng-template", id="modalExport.html")
         div.preview-html(ng-show="exportFormat == 'html'")
           previewer(markdown="exports")
     div.modal-footer
+      div
+        button.icon-evernote(ng-show="user.evernote", ng-click="popupEvernote()") 保存到Evernote
       div.buttons-group
         button.button-primary(ng-click="download()") 导出
         button.button-default(ng-click="cancel()") 取消

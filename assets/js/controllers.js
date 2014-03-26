@@ -210,6 +210,19 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
                 $scope.exportFormat = mode
               }
 
+              $scope.popupEvernote = function() {
+                $modal.open({
+                  templateUrl: 'modalEvernote.html',
+                  controller: 'EvernoteCtrl',
+                  resolve: {
+                    title: function() {
+                      return book.title
+                    }
+                  },
+                  windowClass: 'mask-evernote'
+                })
+              }
+
             }
           })
 
@@ -254,11 +267,8 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
             templateUrl: 'modalEvernote.html',
             controller: 'EvernoteCtrl',
             resolve: {
-              note: function() {
-                return note
-              },
-              book: function() {
-                return $scope.book
+              title: function() {
+                return (note.chapter || (book.title + '第' + note.page_no + '页'))
               }
             }
           })
@@ -429,7 +439,7 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
       $modalInstance.dismiss('cancel')
     }
   }])
-  .controller('EvernoteCtrl', ['$scope', '$rootScope', '$modalInstance', 'EvernoteService', 'note', 'book', function($scope, $rootScope, $modalInstance, EvernoteService, note, book) {
+  .controller('EvernoteCtrl', ['$scope', '$rootScope', '$modalInstance', 'EvernoteService', 'title', function($scope, $rootScope, $modalInstance, EvernoteService, title) {
     var STATUS = {
       'NOTEBOOK': {
         'PENDING': '正在获取Evernote笔记本列表...',
@@ -455,7 +465,7 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
     $scope.choice_notebook = 'exist'
 
     function saveNoteTo(notebook) {
-      EvernoteService.save(note.chapter || (book.title + '第' + note.page_no + '页')
+      EvernoteService.save(title
                           , $('.content')
                           , notebook.guid
                           , function() {

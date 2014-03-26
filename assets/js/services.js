@@ -591,31 +591,31 @@ angular.module('ANNO')
         console.log(error)
       })
     },
-    createNoteBook: function(callback) {
+    createNoteBook: function(name, callback) {
+      console.log('new nb', name)
       this.listNoteBooks(function(notebooks) {
         var notebook = _.filter(notebooks, function(nb) {
-          return nb.name == "读书笔记"
+          return nb.name == name
         })
         if (!notebook.length) {
           var nnb = new Notebook()
-          nnb.name = "读书笔记"
-          noteStore.createNotebook(authenticationToken, nnb, function() {
+          nnb.name = name
+          noteStore.createNotebook(authenticationToken, nnb, function(res) {
             console.log(arguments)
-            callback && callback()
+            callback && callback(res)
           })
         } else {
-          callback && callback()
+          callback && callback(notebook[0])
         }
       })
     },
-    save: function(title, content_node, callback) {
-      this.createNoteBook(function() {
-        var note = new Note
-        note.title = title
-        note.content = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>' + enml.html2enml(content_node[0]) + '</en-note>'
-        noteStore.createNote(authenticationToken, note, function() {
-          console.log(arguments)
-        })
+    save: function(title, content_node, notebook_id, callback) {
+      var note = new Note
+      note.title = title
+      note.content = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>' + enml.html2enml(content_node[0]) + '</en-note>'
+      note.notebookGuid = notebook_id
+      noteStore.createNote(authenticationToken, note, function() {
+        callback && callback()
       })
     }
   }

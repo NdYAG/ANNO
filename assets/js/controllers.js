@@ -256,10 +256,42 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
             $scope.$apply()
           })
         }
-        $scope.saveToEvernote = function() {
-          EvernoteService.save(note.chapter || ($scope.book.title + '第' + note.page_no + '页'),
-                               $('.content'))
+        $scope.popupEvernote = function() {
+          var modalInstance = $modal.open({
+            templateUrl: 'modalEvernote.html',
+            controller: function($scope, $modalInstance) {
+              EvernoteService.listNoteBooks(function(res) {
+                $scope.notebooks = Array.prototype.slice.call(res, 0) // [{name: ,quid:}]
+                $scope.selectedNotebook = $scope.notebooks[0]
+                $scope.$apply()
+              })
+              $scope.choice_notebook = 'exist'
+              $scope.ok = function(choice, existbook, newbook) {
+                if (choice == 'exist') {
+                  EvernoteService.save(note.chapter || ($scope.book.title + '第' + note.page_no + '页')
+                                     , $('.content')
+                                     , existbook.guid
+                                     , function() {
+                                       $modalInstance.close()
+                                     })
+                } else if (choice == 'new') {
+                  EvernoteService.createNoteBook(newbook, function(res) {
+                    EvernoteService.save(note.chapter || ($scope.book.title + '第' + note.page_no + '页')
+                                        , $('.content')
+                                        , res.guid
+                                        , function() {
+                                          $modalInstance.close()
+                                        })
+                  })
+                }
+              }
+              $scope.cancel = function() {
+                $modalInstance.close()
+              }
+            }
+          })
         }
+
       })
 
     })

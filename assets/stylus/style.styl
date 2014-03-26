@@ -196,7 +196,25 @@ ul.notes
 
 // one note
 @import "note.styl"
-
+.modal-evernote
+  h3
+    margin-bottom 0
+  .row
+    height 2em
+    label
+      width 10em
+      display inline-block
+      vertical-align top
+    select, input[type="text"]
+      margin 0
+    select
+      font-size 1.2em
+    input[type="text"]
+      border 1px solid #ccc
+      padding .4em 1em
+      outline 0
+      &:focus
+        border-color #999
 
 // editor
 @import "edit.styl"

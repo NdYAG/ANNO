@@ -10,5 +10,11 @@
     }
   },
   "icons": { "16": "img/books.png", "128": "img/books.png" },
-  "permissions": [{"fileSystem": ["write"]} ,"storage", "identity", "https://www.douban.com/*", "https://api.douban.com/*", "http://*.douban.com/*"]
+  "permissions": [
+    {"fileSystem": ["write"]}
+    , "storage"
+    , "identity"
+    , "https://www.douban.com/*", "https://api.douban.com/*", "http://*.douban.com/*"
+    , "https://*.evernote.com/*", "http://*.evernote.com/*"
+  ]
 }

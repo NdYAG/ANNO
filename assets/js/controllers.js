@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('ANNO.controllers', []).
+angular.module('ANNO.controllers', ['infinite-scroll']).
   controller('LoginCtrl', ['$scope', '$window', 'AuthService', function($scope, $window, AuthService) {
     $scope.reload = function() {
       $window.location.href = '/auth'

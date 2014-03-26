@@ -41,14 +41,14 @@ body
 
 .operate
   position: absolute
-  top: 0
-  right: 0
+  top 0
+  right 0
   padding 1em
   margin 0 auto
   padding-left calc(50% \- 300px)
   margin .3em 0 1.2em
-  transition opacity .3s, top 1s
-  opacity: 1
+  transition opacity .3s, top .5s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+  opacity 1
   a
     color #808080
     margin-right 1em
@@ -71,9 +71,9 @@ body
         color #f39c12
     &.icon-delete
       &:before
-        vertical-align: middle
+        vertical-align middle
       &:hover
         color #DD514C
   &.hide
-    top: -2em
-    opacity: 0
+    top -2em
+    opacity 0

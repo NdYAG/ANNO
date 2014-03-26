@@ -585,14 +585,12 @@ angular.module('ANNO')
   return {
     listNoteBooks: function(callback) {
       noteStore.listNotebooks(authenticationToken, function (notebooks) {
-        console.log(notebooks)
         callback && callback(notebooks)
       }, function onerror(error) {
         console.log(error)
       })
     },
     createNoteBook: function(name, callback) {
-      console.log('new nb', name)
       this.listNoteBooks(function(notebooks) {
         var notebook = _.filter(notebooks, function(nb) {
           return nb.name == name
@@ -601,7 +599,6 @@ angular.module('ANNO')
           var nnb = new Notebook()
           nnb.name = name
           noteStore.createNotebook(authenticationToken, nnb, function(res) {
-            console.log(arguments)
             callback && callback(res)
           })
         } else {

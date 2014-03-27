@@ -162,7 +162,7 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
       }
       $scope.author = user
       SerializeService.fetchBook(user.id, bid).then(function(book) {
-        $scope.$emit('page:change', 'book', (user.name? '<a link="/' + user.uid + '">' + user.name + '的书架 &gt; </a>' : '') + book.title)
+        $scope.$emit('page:change', 'book', (user.name? '<a link="/' + user.uid + '">' + user.name + '的书架</a> ❯ ' : '') + book.title)
         $scope.book = book
         $scope.order = 'time'
         $scope.reverse = true

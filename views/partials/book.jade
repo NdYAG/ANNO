@@ -25,6 +25,9 @@ section#one-book
       nav.order.button-group()
         button.button-plain(ng-click="order='time'; reverse=true", ng-class="{'active': (order=='time')}") 最新
         button.button-plain(ng-click="order='page_no'; reverse=false", ng-class="{'active': (order=='page_no')}") 页码
+      div.utils
+        a.button-primary.icon-feather(link="/{{ user.uid }}/book/{{ book.id }}/new") 写新笔记
+        a.button-primary.icon-export(ng-click="exportNotes()") 导出
     ul.notes
       li.note(ng-repeat="note in book.notes | orderBy: order : reverse")
         a.note-mask(link="/note/{{ note.id }}")

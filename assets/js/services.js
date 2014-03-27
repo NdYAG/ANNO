@@ -486,8 +486,9 @@ angular.module('ANNO')
     has_more: has_more,
     getAllLocal: getAllLocal,
     getMore: function() {
+      var promise = fetchFriendsList(start, count)
       start += count
-      return fetchFriendsList(start, count)
+      return promise
     }
   }
 }])

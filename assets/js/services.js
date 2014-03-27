@@ -38,6 +38,12 @@ angular.module('ANNO')
         callback && callback()
       })
     },
+    unbindEvernote: function(type, callback) {
+      if ($rootScope.user[type]) {
+        delete $rootScope.user[type]
+      }
+      chrome.storage.local.set({ 'logintoken': $rootScope.user }, callback)
+    },
     isEvernoteAuthed: function() {
       var defer = new $q.defer()
         , valid = function(conf) {

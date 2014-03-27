@@ -100,6 +100,12 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
         $scope.$apply()
       })
     }
+    $scope.unbind = function(type) {
+      AuthService.unbindEvernote(type, function() {
+        $scope[type + '_bound'] = false
+        $scope.$apply()
+      })
+    }
   }])
   .controller('BooksCtrl', ['$scope', '$routeParams', '$modal', '$timeout', 'UserService', 'SerializeService', function($scope, $routeParams, $modal, $timeout, UserService, SerializeService) {
     $scope.$emit('page:change', 'books')

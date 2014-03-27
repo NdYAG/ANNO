@@ -9,14 +9,14 @@ section#info
     h1 绑定Evernote
     div.ui-card.bind-choice(ng-show="(!evernote_bound) && (!yinxiang_bound)")
       span.icon-evernote
-      a(ng-click=" authEvernote('intern') ")
+      a(ng-click=" authEvernote('evernote') ")
         span Evernote International
       a(ng-click=" authEvernote('yinxiang') ")
         span 印象笔记
-    div.ui-card(ng-show="evernote_bound")
+    div.ui-card.unbind(ng-show="evernote_bound", ng-click=" unbind('evernote') ")
       a.icon-evernote.active
         span Evernote International
-    div.ui-card(ng-show="yinxiang_bound")
+    div.ui-card.unbind(ng-show="yinxiang_bound", ng-click=" unbind('yinxiang') ")
       a.icon-evernote.active(ng-show="yinxiang_bound")
         span 印象笔记
   section.recent

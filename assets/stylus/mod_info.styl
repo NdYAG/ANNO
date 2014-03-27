@@ -1,3 +1,5 @@
+@require 'lib/vendor'
+
 #info
   .summary
     white-space pre-wrap
@@ -48,3 +50,29 @@
         border-bottom 1px solid #eee
       &:last-of-type
         display block
+  .unbind
+    position relative
+    &:before, &:after
+      content ""
+      position absolute
+    &:before
+      transition background .3s
+    &:after
+      content "解绑"
+      color #e74c3c
+      top 50%
+      left 50%
+      transform(translate(-50%, -50%))
+      opacity 0
+      transition opacity .3s
+    &:hover
+      cursor pointer
+      &:before
+        top 0
+        left 0
+        right 0
+        bottom 0
+        background rgba(255, 255, 255, .7)
+      &:after
+        display initial
+        opacity 1

@@ -355,6 +355,18 @@ angular.module('ANNO.directives', [])
     });
   }
 })
+.directive('compile', ['$compile', function ($compile) {
+  return function(scope, element, attrs) {
+    scope.$watch(
+      function(scope) {
+        return scope.$eval(attrs.compile)
+      },
+      function(value) {
+        element.html(value)
+        $compile(element.contents())(scope)
+      })
+  }
+}])
 .directive("remoteImage", ['$http', function($http) {
   function fetchImage(scope, elem, url) {
     $http.get(url, {responseType: 'blob', cache: true}).success(function(blob) {

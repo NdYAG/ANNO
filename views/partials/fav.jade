@@ -1,6 +1,6 @@
 section#fav
-  h1 我收藏的笔记
-    sup *
+  //-h1 我收藏的笔记
+  //-   sup *
   ul.notes
     li.note(ng-repeat="note in notes | orderBy: order : reverse")
       a.note-mask(link="/note/{{ note.id }}")

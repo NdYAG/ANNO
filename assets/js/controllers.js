@@ -7,21 +7,23 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
     }
     $scope.getToken = AuthService.auth
   }])
-  .controller('appFrameCtrl', ['$scope', '$rootScope', '$location', '$modal', 'UserService', function($scope, $rootScope, $location, $modal, UserService) {
+  .controller('appFrameCtrl', ['$scope', '$rootScope', '$location', '$modal', '$compile', 'UserService', function($scope, $rootScope, $location, $modal, $compile, UserService) {
     $scope.asideVisible = 0
     $scope.toggleSidebar = function() {
       $scope.asideVisible ^= 1
     }
     $scope.$on('$routeChangeStart', function() {
       $scope.lastBook = null
+      $scope.globalTitle = ''
     })
     $scope.$on('nav:lastBook', function(e, author, book) {
       $scope.author = author
       $scope.lastBook = book
     })
-    $scope.$on('page:change', function(e, mode) {
+    $scope.$on('page:change', function(e, mode, title) {
       $scope.headerInvisible = (mode == 'note' || mode == 'editor')
       $scope.globalCSSClass = 'global_' + mode
+      $scope.globalTitle = title || ''
     })
 
     $scope.logout = function() {
@@ -42,7 +44,7 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
     }
   }])
   .controller('InfoCtrl', ['$scope', 'AuthService', 'UserService', 'SerializeService', function($scope, AuthService, UserService, SerializeService) {
-    $scope.$emit('page:change', 'info')
+    $scope.$emit('page:change', 'info', '个人信息')
 
     UserService.getUserInfo().then(function(user) {
       $scope.user = user
@@ -108,7 +110,6 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
     }
   }])
   .controller('BooksCtrl', ['$scope', '$routeParams', '$modal', '$timeout', 'UserService', 'SerializeService', function($scope, $routeParams, $modal, $timeout, UserService, SerializeService) {
-    $scope.$emit('page:change', 'books')
 
     // Save user data after login
     // var user = UserService.login()
@@ -116,6 +117,7 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
 
     UserService.getUser(uid).then(function(user) {
       $scope.user = user
+      $scope.$emit('page:change', 'books', (user.name || '我') + '的书架')
       // fetch books
       SerializeService.fetchAllBooks(user.id).then(function(books) {
         $scope.books = books
@@ -145,7 +147,6 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
 
   }])
   .controller('BookCtrl', ['$scope', '$routeParams', '$modal', '$timeout', 'UserService', 'SerializeService', 'TranslateService', 'FileSystemService', function($scope, $routeParams, $modal, $timeout, UserService, SerializeService, TranslateService, FileSystemService) {
-    $scope.$emit('page:change', 'book')
 
     var books, book, notes
       , uid = $routeParams.uid
@@ -161,6 +162,7 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
       }
       $scope.author = user
       SerializeService.fetchBook(user.id, bid).then(function(book) {
+        $scope.$emit('page:change', 'book', (user.name? '<a link="/' + user.uid + '">' + user.name + '的书架 &gt; </a>' : '') + book.title)
         $scope.book = book
         $scope.order = 'time'
         $scope.reverse = true
@@ -314,7 +316,7 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
     }
   }])
   .controller('FriendsCtrl', ['$scope', '$http', 'FriendsService', function($scope, $http, FriendsService) {
-    $scope.$emit('page:change', 'friends')
+    $scope.$emit('page:change', 'friends', '友邻的笔记')
 
     $scope.showMoreFriends = function() {
       FriendsService.getMore().then(function(friends) {
@@ -406,7 +408,7 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
 
   }])
   .controller('FavCtrl', ['$scope', 'FavouriteService', function($scope, FavouriteService) {
-    $scope.$emit('page:change', 'fav')
+    $scope.$emit('page:change', 'fav', '我收藏的笔记*')
     FavouriteService.fetchAll(function(notes) {
       $scope.notes = notes
     })

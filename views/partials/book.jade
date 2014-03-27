@@ -1,7 +1,7 @@
 section#one-book
-  h1
-    a(link="/{{ author.uid }}", ng-show="!author.is_self") {{ author.name }}的书架 > 
-    {{ book.title }}
+  //- h1
+    //- a(link="/{{ author.uid }}", ng-show="!author.is_self") < {{ author.name }}的书架
+    //- {{ book.title }}
   div.cubic-view
     div.book-cube(color-thief, image="book_cover", ng-model="dominateColor", ng-class="{ 'sided': book_sided }", ng-click="openBook()", ng-mouseleave="closeBook()")
       div.book-front(ng-class="{ 'opened': book_opened }")

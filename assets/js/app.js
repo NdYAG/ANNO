@@ -13,7 +13,6 @@ var $ = function(selector) {
 
 angular.module('ANNO', [
   'ngRoute',
-  'ngCookies',
   'ANNO.controllers',
   'ANNO.directives',
   'ANNO.ui-directives',

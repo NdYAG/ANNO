@@ -282,7 +282,8 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
             }
           })
         }
-
+      }).catch(function(error) {
+        $scope.error = error
       })
 
     })

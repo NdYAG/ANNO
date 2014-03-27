@@ -1,4 +1,4 @@
-section#one-note
+section#one-note(ng-hide="error")
   h1 {{ note.chapter || ("第" + note.page_no + "页") }}
   div.meta
     a(link="/{{ author.uid }}/book/{{ book.id }}") {{ author.name }}《{{ book.title }}》的笔记

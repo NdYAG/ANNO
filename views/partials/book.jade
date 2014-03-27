@@ -1,7 +1,7 @@
 section#one-book
-  h1
-    a(link="/{{ author.uid }}", ng-show="!author.is_self") {{ author.name }}的书架 > 
-    {{ book.title }}
+  //- h1
+    //- a(link="/{{ author.uid }}", ng-show="!author.is_self") < {{ author.name }}的书架
+    //- {{ book.title }}
   div.cubic-view
     div.book-cube(color-thief, image="book_cover", ng-model="dominateColor", ng-class="{ 'sided': book_sided }", ng-click="openBook()", ng-mouseleave="closeBook()")
       div.book-front(ng-class="{ 'opened': book_opened }")
@@ -47,7 +47,7 @@ script(type="text/ng-template", id="modalExport.html")
           previewer(markdown="exports")
     div.modal-footer
       div
-        button.icon-evernote(ng-show="user.evernote", ng-click="popupEvernote()") 保存到Evernote
+        button.icon-evernote(ng-show="user.evernote || user.yinxiang", ng-click="popupEvernote()") 保存到Evernote
       div.buttons-group
         button.button-primary(ng-click="download()") 导出
         button.button-default(ng-click="cancel()") 取消

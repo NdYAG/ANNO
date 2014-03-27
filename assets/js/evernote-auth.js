@@ -8,14 +8,14 @@ var EvernoteAuth = (function() {
     , userinfo
 
   return {
-    getToken: function(callback) {
+    getToken: function(type, callback) {
       if (access_token) {
         callback(null, access_token)
         return
       }
       var options = {
         interactive: true,
-        url: conf.hostname + '/oauth?oauth_consumer_key=' + conf.consumer_key +
+        url: conf.hostname[type] + '/oauth?oauth_consumer_key=' + conf.consumer_key +
           '&oauth_signature=' + conf.consumer_secret + "%26" +
           '&oauth_signature_method=PLAINTEXT' +
           '&oauth_timestamp=' + (new Date).valueOf() +
@@ -33,7 +33,7 @@ var EvernoteAuth = (function() {
           if (!resp.oauth_callback_confirmed) return
           chrome.identity.launchWebAuthFlow({
             interactive: true,
-            url: conf.hostname + '/OAuth.action?oauth_token=' + resp.oauth_token
+            url: conf.hostname[type] + '/OAuth.action?oauth_token=' + resp.oauth_token
           }, function(redirectUri) {
             console.log('launchWebAuthFlow completed', chrome.runtime.lastError, redirectUri)
             if (chrome.runtime.lastError) {
@@ -80,7 +80,7 @@ var EvernoteAuth = (function() {
       function exchangeCodeForToken(token, verifier) {
         var xhr = new XMLHttpRequest();
         xhr.open('POST',
-                 conf.hostname + '/oauth?' +
+                 conf.hostname[type] + '/oauth?' +
                  'oauth_consumer_key=' + conf.consumer_key +
                  '&oauth_signature=' + conf.consumer_secret + "%26" +
                  '&oauth_signature_method=PLAINTEXT' +

@@ -1,6 +1,6 @@
 section#all-books
-  h1(ng-show="user.is_self") 所有书
-  h1(ng-show="!user.is_self") {{ user.name }}的书架
+  //- h1(ng-show="user.is_self") 所有书
+  //- h1(ng-show="!user.is_self") {{ user.name }}的书架
   ul.books
     li.book(ng-repeat="book in books")
       div.cover(remote-image='book.images.large')

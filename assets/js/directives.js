@@ -295,7 +295,7 @@ angular.module('ANNO.directives', [])
           msg = '发生了奇怪的错误，可能是服务器不稳定，稍后再试试吧。<a href="http://www.douban.com/doumail/write?to=1662222" target="_blank">告诉管理员让他修复错误吧。</a>'
         }
       }
-      elem.addClass('error').addClass('show').html(msg)
+      elem.removeClass('success').addClass('error').addClass('show').html(msg)
       // compile link directive inside
       var link = elem.find('a')
       if (link.length) {
@@ -304,7 +304,7 @@ angular.module('ANNO.directives', [])
     })
 
     scope.$on('alert:success', function(e, msg) {
-      elem.addClass('success').addClass('show').html(msg)
+      elem.removeClass('error').addClass('success').addClass('show').html(msg)
       $timeout(function() {
         scope.$emit('alert:dismiss')
       }, 2000)
@@ -355,6 +355,18 @@ angular.module('ANNO.directives', [])
     });
   }
 })
+.directive('compile', ['$compile', function ($compile) {
+  return function(scope, element, attrs) {
+    scope.$watch(
+      function(scope) {
+        return scope.$eval(attrs.compile)
+      },
+      function(value) {
+        element.html(value)
+        $compile(element.contents())(scope)
+      })
+  }
+}])
 .directive("remoteImage", ['$http', function($http) {
   function fetchImage(scope, elem, url) {
     $http.get(url, {responseType: 'blob', cache: true}).success(function(blob) {

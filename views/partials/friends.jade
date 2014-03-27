@@ -1,5 +1,5 @@
 section#friends
-  h1 友邻的笔记
+  //- h1 友邻的笔记
   ul.friends(infinite-scroll="showMoreFriends()", scroll-elem-sel=".ng-view")
     li.friend(ng-repeat="friend in friends")
       a(link="/{{ friend.uid }}")

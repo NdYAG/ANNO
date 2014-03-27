@@ -6,5 +6,8 @@ var DoubanAuthConf = {
 var EvernoteAuthConf = {
   "consumer_key": "",
   "consumer_secret": "",
-  "hostname": "https://sandbox.evernote.com"
+  "hostname": {
+    "evernote": "https://www.evernote.com",
+    "yinxiang": "https://app.yinxiang.com"
+  }
 }

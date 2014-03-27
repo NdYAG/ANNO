@@ -90,12 +90,13 @@ angular.module('ANNO.controllers', ['infinite-scroll']).
       })
     })
 
-    AuthService.isEvernoteAuthed().then(function() {
-      $scope.evernote_bound = true
+    AuthService.isEvernoteAuthed().then(function(type) {
+      $scope[type + '_bound'] = true
     })
-    $scope.authEvernote = function() {
-      AuthService.evernote(function() {
-        $scope.evernote_bound = true
+    $scope.authEvernote = function(type) {
+      // type: evernote or yinxiang
+      AuthService.evernote(type, function() {
+        $scope[type + '_bound'] = true
         $scope.$apply()
       })
     }

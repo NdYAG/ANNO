@@ -7,9 +7,18 @@ section#info
       其中给<a link="/{{ user.uid }}/book/{{ max_book.id }}">{{ max_book.title }}</a>写了最多笔记，一共{{ max_book.notes_count }}篇
   section.account
     h1 绑定Evernote
-    div.ui-card
-      a.icon-evernote(ng-show="!evernote_bound", ng-click="authEvernote()")
-      a.icon-evernote.active(ng-show="evernote_bound")
+    div.ui-card.bind-choice(ng-show="(!evernote_bound) && (!yinxiang_bound)")
+      span.icon-evernote
+      a(ng-click=" authEvernote('intern') ")
+        span Evernote International
+      a(ng-click=" authEvernote('yinxiang') ")
+        span 印象笔记
+    div.ui-card(ng-show="evernote_bound")
+      a.icon-evernote.active
+        span Evernote International
+    div.ui-card(ng-show="yinxiang_bound")
+      a.icon-evernote.active(ng-show="yinxiang_bound")
+        span 印象笔记
   section.recent
     h1 最近写过笔记的书
       ul.books

@@ -16,5 +16,6 @@
     , "identity"
     , "https://www.douban.com/*", "https://api.douban.com/*", "http://*.douban.com/*"
     , "https://*.evernote.com/*", "http://*.evernote.com/*"
+    , "https://*.yinxiang.com/*", "http://*.yinxiang.com/*"
   ]
 }

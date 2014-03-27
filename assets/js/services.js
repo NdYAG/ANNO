@@ -24,26 +24,32 @@ angular.module('ANNO')
 
       })
     },
-    evernote: function(callback) {
-      EvernoteAuth.getToken(function(error, res) {
+    evernote: function(type, callback) {
+      EvernoteAuth.getToken(type, function(error, res) {
         if (!res.oauth_token) {
           return
         }
         if ($rootScope.user) {
           // set and save
-          chrome.storage.local.set({'logintoken': _.extend($rootScope.user, {
-            evernote: res
-          })})
+          var token = {}
+          token[type] = res // type: evernote or yinxiang
+          chrome.storage.local.set({'logintoken': _.extend($rootScope.user, token)})
         }
         callback && callback()
       })
     },
     isEvernoteAuthed: function() {
       var defer = new $q.defer()
+        , valid = function(conf) {
+          return (conf && conf.oauth_token && (new Date) < conf.edam_expires)
+        }
       chrome.storage.local.get('logintoken', function(res) {
         var evernote = res.logintoken.evernote
-        if (evernote && evernote.oauth_token && (new Date) < evernote.edam_expires) {
-          defer.resolve()
+          , yinxiang = res.logintoken.yinxiang
+        if (valid(evernote)) {
+          defer.resolve('evernote')
+        } else if (valid(yinxiang)) {
+          defer.resolve('yinxiang')
         } else {
           defer.reject()
         }
@@ -578,7 +584,10 @@ angular.module('ANNO')
 }])
 .factory('EvernoteService', ['$rootScope', function($rootScope) {
   var user = $rootScope.user
-    , conf = user.evernote
+    , conf = user.evernote || user.yinxiang
+
+  if (!conf) return {}
+
   var noteStoreURL = conf.edam_noteStoreUrl
     , authenticationToken = conf.oauth_token
     , noteStoreTransport = new Thrift.BinaryHttpTransport(noteStoreURL)

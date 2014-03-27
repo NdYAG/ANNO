@@ -15,12 +15,13 @@
   & > section
     h1
       font-size 1.32em
-    &.statistic, &.account
-      display table-cell
+    &.statistic
       h1
         margin-top 0
     &.account
-      padding-left 2em
+      .ui-card
+        text-align center
+        margin-right 1em
       a
         font-size 3em
         // color #4B4D4E
@@ -30,3 +31,20 @@
           color lightseagreen
         &.active
           cursor default
+      span
+        font-size .4em
+        display block
+  .bind-choice
+    .icon-evernote
+      color lightgray
+      float left
+      font-size 3em
+      margin-right .3em
+    a
+      &:first-of-type
+        display inline-block
+        padding-bottom .1em
+        margin-bottom .2em
+        border-bottom 1px solid #eee
+      &:last-of-type
+        display block

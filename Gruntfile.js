@@ -121,6 +121,15 @@ module.exports = function(grunt) {
             cwd: 'assets/resource/',
             src: '**',
             dest: 'public/'
+          },
+          {
+            expand: true,
+            cwd: 'bower_components/evernote/evernote-sdk-js/production/',
+            src: '*-minified.js',
+            dest: 'public/lib/evernote/',
+            rename: function(dest, src) {
+              return dest + src.replace('-minified', '.min')
+            }
           }
         ]
       },

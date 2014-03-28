@@ -212,8 +212,8 @@ module.exports = function(grunt) {
   grunt.registerTask('js:app', ['concat:app_ctrl', 'concat:app_service'])
   grunt.registerTask('js:lib', ['concat', 'uglify:lib'])
   grunt.registerTask('js:develop', ['js:lib', 'copy:develop'])
-  grunt.registerTask('js:release', ['js:lib', 'uglify:release'])
+  grunt.registerTask('js:release', ['js:lib', 'js:app', 'uglify:release'])
 
   grunt.registerTask('default', ['jade', 'js:develop', 'stylus', 'copy'])
-  grunt.registerTask('release', ['jade', 'js:release', 'stylus', 'compress', 'copy'])
+  grunt.registerTask('release', ['jade', 'js:release', 'stylus', 'copy:main', 'compress'])
 }

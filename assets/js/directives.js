@@ -221,7 +221,7 @@ angular.module('ANNO.directives', [])
         Array.prototype.slice.call(elem.find('pre'), 0).forEach(function(block) {
           var $block = $(block)
             , $code = $block.find('code')
-          if ($code.attr('class').length) {
+          if ($code.attr('class')) {
             var mode = $code.attr('class').slice(5)
             mode = MIME[mode] || mode
             CodeMirror.runMode($block.text(), mode, block)

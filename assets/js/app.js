@@ -11,11 +11,11 @@ var $ = function(selector) {
   }
 }
 
-angular.module('ANNO', [
+var app = angular.module('ANNO', [
   'ngRoute',
-  'ngCookies',
   'ANNO.controllers',
   'ANNO.directives',
+  'ANNO.ui-directives',
   'ui.bootstrap'
 ]).config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/login', {
@@ -66,9 +66,7 @@ angular.module('ANNO', [
     if (next.templateUrl == "/partials/about.html" || next.templateUrl == "/partials/login.html") {
       return
     }
-    UserService.isLoggedIn().then(function() {
-
-    }, function() {
+    UserService.isLoggedIn().catch(function() {
       $location.path('/login')
     })
   })

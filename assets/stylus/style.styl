@@ -41,7 +41,7 @@ pre
 header
   &.header
     bar()
-    span
+    span.icon-sidebar
       float left
   &.vanished
     right auto
@@ -67,11 +67,11 @@ li.book
 
 @import "widgets/book.styl"
 
-.modal-search
-  .modal-footer
-    div:first-child
-      text-align left
-      color #999
+.modal-footer
+  div:first-child
+    float left
+    text-align left
+    color #999
 
 #new-book-name
   border 1px solid #eee
@@ -164,6 +164,24 @@ header
   .order
     position relative
     left 3em
+  .utils
+    padding .8em 0
+    .button-primary
+      border-radius .3em
+      margin-right 1em
+      background #aaa
+      border-color #aaa
+      transition all .3s
+      &:hover
+        background lightseagreen
+        border-color lightseagreen
+  .title
+    font-size .8em
+    line-height 1.25
+    margin-left 1em
+    font-family Hiragino Sans GB, STHeiti, Microsoft Yahei, sans-serif
+    a
+      color #fff
 
 @import "widgets/book-3d.styl"
 
@@ -178,6 +196,29 @@ ul.notes
 .modal-export
   h3
     margin-bottom 0
+  button.icon-evernote
+    background #c0c0c0
+    border 0
+    color #FFF
+    padding .5em 1em
+    font-size 1em
+    outline 0
+    border-radius .3em
+    transition background-color .2s
+    &:before
+      margin-right .3em
+    &:hover
+      background #119E4D
+      box-shadow inset 0 1px 3px rgba(0, 0, 0, 0.3)
+      &:before
+        display inline-block
+        transform(rotate(-10deg))
+.mask-evernote
+  background rgba(0, 0, 0, .3)
+  &.modal .modal-dialog
+    min-width 70%
+
+
 .export-preview
   font-size 90%
   white-space pre-wrap
@@ -196,7 +237,25 @@ ul.notes
 
 // one note
 @import "note.styl"
-
+.modal-evernote
+  h3
+    margin-bottom 0
+  .row
+    height 2em
+    label
+      width 10em
+      display inline-block
+      vertical-align top
+    select, input[type="text"]
+      margin 0
+    select
+      font-size 1.2em
+    input[type="text"]
+      border 1px solid #ccc
+      padding .4em 1em
+      outline 0
+      &:focus
+        border-color #999
 
 // editor
 @import "edit.styl"

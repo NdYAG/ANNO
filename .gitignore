@@ -9,5 +9,8 @@ bower_components/
 
 
 assets/js/config.js
+assets/js/controllers.js
+assets/js/services.js
 public/js/config.min.js
 public/css/style.css
+public/

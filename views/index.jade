@@ -3,6 +3,8 @@ extends layout
 block content
   header.header(ng-class="{ 'pushed' : asideVisible, 'vanished' : headerInvisible }")
     span.icon-sidebar(ng-click="toggleSidebar()")
+    //-span.title(ng-bind-html="globalTitle")
+    span.title(compile="globalTitle")
   aside.hidden(ng-class="{ 'show': asideVisible }")
     div.banner(ng-show="user")
       a.avatar(ng-show="user", remote-image="user.avatar", link="/", ng-click="toggleSidebar()")
@@ -12,7 +14,7 @@ block content
       li(ng-show="lastBook && user")
         a(link="/{{ author.uid }}/book/{{ lastBook.id }}") 返回 {{ lastBook.title }}
       li
-        a(link="/{{ user.uid }}/info") 统计
+        a(link="/{{ user.uid }}/info") 个人
       li
         a(link="/friends") 友邻笔记
       li
@@ -39,13 +41,34 @@ block content
       div.modal-footer.buttons-group
           button.button-warning(ng-click="ok()") 注销
           button.button-default(ng-click="cancel()") 取消
+  script(type="text/ng-template", id="modalEvernote.html")
+    div.modal-evernote
+      div.modal-header
+        h3 保存到Evernote/印象笔记
+      div.modal-body
+        div.row
+          label
+            input(type="radio", ng-model="choice_notebook", value="exist")
+            保存已有笔记本
+          select(ng-show="choice_notebook == 'exist'", ng-model="selectedNotebook", ng-options="nb.name for nb in notebooks")
+        div.row
+          label
+            input(type="radio", ng-model="choice_notebook", value="new")
+            创建新笔记本
+          input(ng-show="choice_notebook == 'new'", type="text", placeholder="输入新笔记本名", ng-model="new_notebook")
+      div.modal-footer
+        div.status {{ status }}
+        div.buttons-group
+          button.button-primary(ng-click="ok(choice_notebook, selectedNotebook, new_notebook)") 保存
+          button.button-default(ng-click="cancel()") 取消
     
 block scripts
   script(src="lib/underscore/underscore.min.js")
   script(src="lib/angular/angular.min.js")
   script(src="lib/angular/angular-route.min.js")
-  script(src="lib/angular/angular-cookies.min.js")
-  //-script(src="lib/angular/angular-resource.min.js")
+  //- script(src="lib/angular/angular-sanitize.min.js")
+  //- script(src="lib/angular/angular-cookies.min.js")
+  //- script(src="lib/angular/angular-resource.min.js")
   //- script(src="/lib/underscore/underscore.js")
               
   //- script(src="/lib/angular/angular.js")
@@ -54,15 +77,21 @@ block scripts
               
   script(src="/lib/angular-bootstrap/ui-bootstrap.min.js")
   script(src="/lib/angular-bootstrap/ui-bootstrap-tpls.min.js")
+  
+  script(src="lib/ng-infinite-scroll/ng-infinite-scroll.min.js")
         
   script(src="/lib/codemirror/codemirror.min.js")
   script(src="/lib/marked/marked.min.js")
   script(src="/lib/color-thief/color-thief.min.js")
+  script(src="/lib/evernote/evernote-sdk.min.js")
 
   script(src="/js/config.min.js")
   script(src="/js/douban-auth.min.js")
+  script(src="/js/evernote-auth.min.js")
   script(src="/js/app.min.js")
+  script(src="/js/enml.min.js")
   script(src="/js/controllers.min.js")
   script(src="/js/services.min.js")
   script(src="/js/directives.min.js")
+  script(src="/js/ui-directives.min.js")
   script(src="/js/filters.min.js")

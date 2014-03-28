@@ -19,15 +19,17 @@
     "tests"
   ],
   "dependencies": {
-    "angular-route": "~1.2.13",
-    "angular-cookies": "~1.2.13",
+    "angular-route": "~1.2.15",
+    "angular-cookies": "~1.2.15",
     "angular-bootstrap": "*",
     "marked": "*",
     "codemirror": "*",
     "color-thief": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "evernote": "~1.25.2",
+    "angular-sanitize": "~1.2.15"
   },
   "resolutions": {
-    "angular": "~1.2.13"
+    "angular": "~1.2.15"
   }
 }

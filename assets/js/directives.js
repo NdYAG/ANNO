@@ -272,13 +272,13 @@ angular.module('ANNO.directives', [])
     })
   }
 }])
-.directive('alert', ['$rootScope', '$timeout', function($rootScope, $timeout) {
+.directive('alert', ['$rootScope', '$timeout', '$compile', function($rootScope, $timeout, $compile) {
   return function(scope, elem, attrs) {
     var ERROR = {
-        '103': '访问令牌出错，需要<a href="/#/login">重新授权登录</a>',
+        '103': '访问令牌出错，需要<a link="/login">重新授权登录</a>',
         '111': '访问太频繁，超出第三方应用限额',
         '999': '未知错误',
-        '1000': '这篇笔记是私密的，只能阅读到简介部分，不能显示全文',
+        '1000': '<a link="/">这篇笔记是私密的，只能阅读到简介部分，不能显示全文。点我返回书架</a>',
         '1001': '内容不存在，<a link="/">回到我的书架</a>',
         '1002': '必要的信息还没填完，请检查标题和内容是否填写',
         '1003': '上传图片太大，不能大于3M',
@@ -295,18 +295,26 @@ angular.module('ANNO.directives', [])
           msg = '发生了奇怪的错误，可能是服务器不稳定，稍后再试试吧。<a href="http://www.douban.com/doumail/write?to=1662222" target="_blank">告诉管理员让他修复错误吧。</a>'
         }
       }
-      elem.addClass('error').addClass('show').html(msg)
+      elem.removeClass('success').addClass('error').addClass('show').html(msg)
+      // compile link directive inside
+      var link = elem.find('a')
+      if (link.length) {
+        link.replaceWith($compile(link[0].outerHTML)(scope))
+      }
     })
+
     scope.$on('alert:success', function(e, msg) {
-      elem.addClass('success').addClass('show').html(msg)
+      elem.removeClass('error').addClass('success').addClass('show').html(msg)
       $timeout(function() {
         scope.$emit('alert:dismiss')
       }, 2000)
     })
-    elem.on('click', function() {
+
+    scope.$on('alert:dismiss', function(e) {
       elem.removeClass('show')
     })
-    scope.$on('alert:dismiss', function(e) {
+
+    elem.on('click', function(e) {
       elem.removeClass('show')
     })
 
@@ -347,7 +355,19 @@ angular.module('ANNO.directives', [])
     });
   }
 })
-.directive("remoteImage", ['$http', '$compile', function($http, $compile) {
+.directive('compile', ['$compile', function ($compile) {
+  return function(scope, element, attrs) {
+    scope.$watch(
+      function(scope) {
+        return scope.$eval(attrs.compile)
+      },
+      function(value) {
+        element.html(value)
+        $compile(element.contents())(scope)
+      })
+  }
+}])
+.directive("remoteImage", ['$http', function($http) {
   function fetchImage(scope, elem, url) {
     $http.get(url, {responseType: 'blob', cache: true}).success(function(blob) {
       if (elem[0].nodeName === 'IMG') {

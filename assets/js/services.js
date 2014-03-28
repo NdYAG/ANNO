@@ -1,7 +1,4 @@
-'use strict'
-
-angular.module('ANNO')
-.factory('AuthService', ['$http', '$location', function($http, $location) {
+app.factory('AuthService', ['$rootScope', '$http', '$q', '$location', function($rootScope, $http, $q, $location) {
   return {
     auth: function() {
       DoubanAuth.getToken(function(error, access_token) {
@@ -13,20 +10,58 @@ angular.module('ANNO')
             'Authorization': 'Bearer ' + access_token
           }
         }).success(function(resp) {
-          chrome.storage.local.set({'logintoken': JSON.stringify({
+          chrome.storage.local.set({'logintoken': {
             id: resp.id,
             uid: resp.uid,
             avatar: resp.large_avatar,
             token: access_token
-          })})
+          }})
           $location.path('/')
         })
 
       })
+    },
+    evernote: function(type, callback) {
+      EvernoteAuth.getToken(type, function(error, res) {
+        if (!res.oauth_token) {
+          return
+        }
+        if ($rootScope.user) {
+          // set and save
+          var token = {}
+          token[type] = res // type: evernote or yinxiang
+          chrome.storage.local.set({'logintoken': _.extend($rootScope.user, token)})
+        }
+        callback && callback()
+      })
+    },
+    unbindEvernote: function(type, callback) {
+      if ($rootScope.user[type]) {
+        delete $rootScope.user[type]
+      }
+      chrome.storage.local.set({ 'logintoken': $rootScope.user }, callback)
+    },
+    isEvernoteAuthed: function() {
+      var defer = new $q.defer()
+        , valid = function(conf) {
+          return (conf && conf.oauth_token && (new Date) < conf.edam_expires)
+        }
+      chrome.storage.local.get('logintoken', function(res) {
+        var evernote = res.logintoken.evernote
+          , yinxiang = res.logintoken.yinxiang
+        if (valid(evernote)) {
+          defer.resolve('evernote')
+        } else if (valid(yinxiang)) {
+          defer.resolve('yinxiang')
+        } else {
+          defer.reject()
+        }
+      })
+      return defer.promise
     }
   }
 }])
-.factory('UserService', function($rootScope, $http, $q) {
+app.factory('UserService', function($rootScope, $http, $q) {
   return {
     isLoggedIn: function() {
       var defer = new $q.defer()
@@ -80,7 +115,7 @@ angular.module('ANNO')
       var defer = new $q.defer()
       chrome.storage.local.get('logintoken', function(resp) {
         if (resp.logintoken) {
-          $rootScope.user = JSON.parse(resp.logintoken)
+          $rootScope.user = resp.logintoken
           defer.resolve($rootScope.user)
         } else {
           defer.reject()
@@ -96,7 +131,113 @@ angular.module('ANNO')
     }
   }
 })
-.factory('SerializeService', function($q, $http, $rootScope, BookService) {
+app.factory('BookService', ['$q', '$http', '$rootScope', function($q, $http, $rootScope) {
+  // fetch book from sessionStorage or from $http
+  return {
+    get: function(bid) {
+      var user = $rootScope.user
+        , id = user.id
+
+      var defer = $q.defer()
+      var books = sessionStorage.getItem(id + '_books')
+        , book
+      if (books) {
+        books = JSON.parse(books)
+        book = books[bid]
+      }
+      if (!book) {
+        $http.get('/api/v2/book/' + bid).success(function(book) {
+          defer.resolve(book)
+        })
+      } else {
+        defer.resolve(book)
+      }
+      return defer.promise
+    }
+  }
+}])
+app.factory('NoteService', ['$http', '$rootScope', 'UserService', function($http, $rootScope, UserService) {
+  var user = $rootScope.user
+    , id = user.id
+    , STORAGE_BOOK = id + '_books'
+    , STORAGE_NOTE = id + '_notes'
+  var buildFormData = function(payload, files) {
+      var formData = new FormData()
+      _.each(payload, function(val, key) {
+        formData.append(key, val)
+      })
+      _.each(files, function(file) {
+        formData.append(file.name, file.obj)
+      })
+      return formData
+  }
+
+  function increaseNoteCount(bid, delta) {
+    delta = delta || 1
+    var books = JSON.parse(sessionStorage.getItem(STORAGE_BOOK))
+      , book = books[bid]
+    if (book) {
+      book.notes_count += delta
+      sessionStorage.setItem(STORAGE_BOOK, JSON.stringify(books))
+    }
+  }
+  return {
+    get: function(params) {
+      return $http.get('/api/v2/book/annotation/' + params.id)
+    },
+    put: function(params, payload, photos) {
+      var formData = buildFormData(payload, photos)
+      return $http.put('/api/v2/book/annotation/' + params.id, formData, {
+        transformRequest: angular.identity,
+        headers: {'Content-Type': undefined}
+      }).success(function(note) {
+        var notes = sessionStorage.getItem(STORAGE_NOTE)
+        if (notes) {
+          notes = JSON.parse(notes)
+          notes.forEach(function(n, i) {
+            if (n.id == note.id) {
+              notes[i] = note
+            }
+          })
+          sessionStorage.setItem(STORAGE_NOTE, JSON.stringify(notes))
+        }
+      })
+    },
+    post: function(params, payload, photos) {
+      var formData = buildFormData(payload, photos)
+      return $http.post('/api/v2/book/' + params.bid + '/annotations', formData, {
+        transformRequest: angular.identity,
+        headers: {'Content-Type': undefined}
+      }).success(function(note) {
+        var notes = sessionStorage.getItem(STORAGE_NOTE)
+        if (notes) {
+          notes = JSON.parse(notes)
+          notes.push(note)
+          sessionStorage.setItem(STORAGE_NOTE, JSON.stringify(notes))
+
+          increaseNoteCount(note.book_id)
+        }
+      })
+    },
+    remove: function(params) {
+      var id = params.id
+        , bid = params.bid
+      return $http.delete('/api/v2/book/annotation/' + id).success(function() {
+        var notes = sessionStorage.getItem(STORAGE_NOTE)
+        if (notes) {
+          notes = JSON.parse(notes)
+          notes = notes.filter(function(note) {
+            return note.id != id
+          })
+          sessionStorage.setItem(STORAGE_NOTE, JSON.stringify(notes))
+
+          increaseNoteCount(bid, -1)
+        }
+      })
+    }
+  }
+}])
+app.factory('SerializeService', function($q, $http, $rootScope, BookService) {
   function sync(url, start, count, callback) {
     sync.books = sync.books || {}
     sync.notes = sync.notes || []
@@ -204,7 +345,108 @@ angular.module('ANNO')
   }
 
 })
-.factory('TranslateService', function() {
+app.factory('FriendsService', ['$q', '$http', '$rootScope', function($q, $http, $rootScope) {
+
+  var localData
+    , start = 0
+    , count = 50
+    , has_more = true
+
+  function getAllLocal() {
+    if (!localData) {
+      var id = $rootScope.user.id
+      localData = sessionStorage.getItem(id + '_friends')
+      localData = JSON.parse(localData)
+      localData = localData || []
+    }
+    return localData
+  }
+
+  function fetchFriendsList(start, count) {
+    var defer = $q.defer()
+      , user = $rootScope.user
+    $http({
+      method: 'GET',
+      url: '/api/shuo/v2/users/' + user.uid + '/following',
+      params: {
+        start: start,
+        count: count
+      },
+      cache: true
+    })
+    .success(function(resp) {
+      Array.prototype.push.apply(localData, _.filter(resp, function(u) { return u.type == 'user' }))
+      if (!resp.length) {
+        has_more = false
+      }
+      defer.resolve(localData)
+    })
+    .error(defer.reject)
+
+    return defer.promise
+  }
+
+  return {
+    friends: localData,
+    has_more: has_more,
+    getAllLocal: getAllLocal,
+    getMore: function() {
+      var promise = fetchFriendsList(start, count)
+      start += count
+      return promise
+    }
+  }
+}])
+app.factory('FavouriteService', ['$rootScope', function($rootScope) {
+  // use chrome.storage.sync to save data
+  var storage = chrome.storage.sync
+    , STORAGE_STAR = $rootScope.user.id + '_favourites'
+  return {
+    getState: function(note, cb) {
+      this.fetchAll(function(favourites) {
+        var is_faved = false
+        _.each(favourites, function(n) {
+          if (n.id == note.id) {
+            is_faved = true
+          }
+        })
+        cb(is_faved)
+      })
+    },
+    star: function(note, cb) {
+      this.fetchAll(function(favourites) {
+        favourites.push(note)
+        var item = {}
+        item[STORAGE_STAR] = favourites
+        storage.set(item, function() {
+          cb({ is_starred: true })
+        })
+      })
+    },
+    unstar: function(note, cb) {
+      this.fetchAll(function(favourites) {
+        favourites = favourites.filter(function(n) {
+          return n.id != note.id
+        })
+        var item = {}
+        item[STORAGE_STAR] = favourites
+        storage.set(item, function() {
+          cb({ is_starred: false })
+        })
+      })
+    },
+    fetchAll: function(callback) {
+      storage.get( STORAGE_STAR , function(resp) {
+        if (resp && resp[STORAGE_STAR]) {
+          callback(resp[STORAGE_STAR])
+        } else {
+          callback([])
+        }
+      })
+    }
+  }
+}])
+app.factory('TranslateService', function() {
   var g_html_blocks = []
   var escapeCharacters = function(text, charsToEscape, afterBackslash) {
     var regexString = "([" + charsToEscape.replace(/([\[\]\\])/g,"\\$1") + "])"
@@ -296,117 +538,57 @@ angular.module('ANNO')
     }
   }
 })
-.factory('NoteService', ['$http', '$rootScope', 'UserService', function($http, $rootScope, UserService) {
-  // UserService.login().then(function(user) {
-
-  // })
+app.factory('EvernoteService', ['$rootScope', function($rootScope) {
   var user = $rootScope.user
-    , id = user.id
-    , STORAGE_BOOK = id + '_books'
-    , STORAGE_NOTE = id + '_notes'
-  var buildFormData = function(payload, files) {
-      var formData = new FormData()
-      _.each(payload, function(val, key) {
-        formData.append(key, val)
-      })
-      _.each(files, function(file) {
-        formData.append(file.name, file.obj)
-      })
-      return formData
-  }
+    , conf = user.evernote || user.yinxiang
 
-  function increaseNoteCount(bid, delta) {
-    delta = delta || 1
-    var books = JSON.parse(sessionStorage.getItem(STORAGE_BOOK))
-      , book = books[bid]
-    if (book) {
-      book.notes_count += delta
-      sessionStorage.setItem(STORAGE_BOOK, JSON.stringify(books))
-    }
-  }
+  if (!conf) return {}
+
+  var noteStoreURL = conf.edam_noteStoreUrl
+    , authenticationToken = conf.oauth_token
+    , noteStoreTransport = new Thrift.BinaryHttpTransport(noteStoreURL)
+    , noteStoreProtocol = new Thrift.BinaryProtocol(noteStoreTransport)
+    , noteStore = new NoteStoreClient(noteStoreProtocol)
   return {
-    get: function(params) {
-      return $http.get('/api/v2/book/annotation/' + params.id)
-    },
-    put: function(params, payload, photos) {
-      var formData = buildFormData(payload, photos)
-      return $http.put('/api/v2/book/annotation/' + params.id, formData, {
-        transformRequest: angular.identity,
-        headers: {'Content-Type': undefined}
-      }).success(function(note) {
-        var notes = sessionStorage.getItem(STORAGE_NOTE)
-        if (notes) {
-          notes = JSON.parse(notes)
-          notes.forEach(function(n, i) {
-            if (n.id == note.id) {
-              notes[i] = note
-            }
-          })
-          sessionStorage.setItem(STORAGE_NOTE, JSON.stringify(notes))
-        }
+    listNoteBooks: function(done, fail) {
+      noteStore.listNotebooks(authenticationToken, function (notebooks) {
+        done && done(notebooks)
+      }, function onerror(error) {
+        fail(error)
       })
     },
-    post: function(params, payload, photos) {
-      var formData = buildFormData(payload, photos)
-      return $http.post('/api/v2/book/' + params.bid + '/annotations', formData, {
-        transformRequest: angular.identity,
-        headers: {'Content-Type': undefined}
-      }).success(function(note) {
-        var notes = sessionStorage.getItem(STORAGE_NOTE)
-        if (notes) {
-          notes = JSON.parse(notes)
-          notes.push(note)
-          sessionStorage.setItem(STORAGE_NOTE, JSON.stringify(notes))
-
-          increaseNoteCount(note.book_id)
-        }
-      })
-    },
-    remove: function(params) {
-      var id = params.id
-        , bid = params.bid
-      return $http.delete('/api/v2/book/annotation/' + id).success(function() {
-        var notes = sessionStorage.getItem(STORAGE_NOTE)
-        if (notes) {
-          notes = JSON.parse(notes)
-          notes = notes.filter(function(note) {
-            return note.id != id
-          })
-          sessionStorage.setItem(STORAGE_NOTE, JSON.stringify(notes))
-
-          increaseNoteCount(bid, -1)
-        }
-      })
-    }
-  }
-}])
-.factory('BookService', ['$q', '$http', 'UserService', function($q, $http, UserService) {
-  // fetch book from sessionStorage or from $http
-  return {
-    get: function(bid) {
-      var user = UserService.login()
-        , id = user.id
-
-      var defer = $q.defer()
-      var books = sessionStorage.getItem(id + '_books')
-        , book
-      if (books) {
-        books = JSON.parse(books)
-        book = books[bid]
-      }
-      if (!book) {
-        $http.get('/api/v2/book/' + bid).success(function(book) {
-          defer.resolve(book)
+    createNoteBook: function(name, callback) {
+      this.listNoteBooks(function(notebooks) {
+        var notebook = _.filter(notebooks, function(nb) {
+          return nb.name == name
         })
-      } else {
-        defer.resolve(book)
-      }
-      return defer.promise
+        if (!notebook.length) {
+          var nnb = new Notebook()
+          nnb.name = name
+          noteStore.createNotebook(authenticationToken, nnb, function(res) {
+            callback && callback(res)
+          })
+        } else {
+          callback && callback(notebook[0])
+        }
+      })
+    },
+    save: function(title, content_node, notebook_id, done, fail) {
+      var note = new Note
+      note.title = title
+      note.content = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>' + enml.html2enml(content_node[0]) + '</en-note>'
+      note.notebookGuid = notebook_id
+      noteStore.createNote(authenticationToken, note, function(res) {
+        if (res.errorCode) {
+          fail && fail(res.parameter)
+        } else {
+          done && done()
+        }
+      })
     }
   }
-
 }])
-.factory('HttpLoadingIntercepter', ['$q', '$rootScope', function($q, $rootScope) {
+app.factory('HttpLoadingIntercepter', ['$q', '$rootScope', function($q, $rootScope) {
   var n_loading = 0
   function isSerious(rejection) {
     if (rejection.data.type === 'text/html') {
@@ -442,10 +624,9 @@ angular.module('ANNO')
     }
   }
 }])
-.factory('HttpOAuthIntercepter', ['$q', '$rootScope', function($q, $rootScope) {
+app.factory('HttpOAuthIntercepter', ['$q', '$rootScope', function($q, $rootScope) {
   return {
     request: function(req) {
-      // console.log(req)
       if (req.url.indexOf('/api') == 0) { // api.douban.com
         req.headers['Authorization'] = 'Bearer ' + $rootScope.user.token
         req.url = 'https://api.douban.com' + req.url.slice(4)
@@ -454,57 +635,8 @@ angular.module('ANNO')
     }
   }
 }])
-.factory('FavouriteService', ['$rootScope', function($rootScope) {
-  // use chrome.storage.sync to save data
-  var storage = chrome.storage.sync
-    , STORAGE_STAR = $rootScope.user.id + '_favourites'
-  return {
-    getState: function(note, cb) {
-      this.fetchAll(function(favourites) {
-        var is_faved = false
-        _.each(favourites, function(n) {
-          if (n.id == note.id) {
-            is_faved = true
-          }
-        })
-        cb(is_faved)
-      })
-    },
-    star: function(note, cb) {
-      this.fetchAll(function(favourites) {
-        favourites.push(note)
-        var item = {}
-        item[STORAGE_STAR] = favourites
-        storage.set(item, function() {
-          cb({ is_starred: true })
-        })
-      })
-    },
-    unstar: function(note, cb) {
-      this.fetchAll(function(favourites) {
-        favourites = favourites.filter(function(n) {
-          return n.id != note.id
-        })
-        var item = {}
-        item[STORAGE_STAR] = favourites
-        storage.set(item, function() {
-          cb({ is_starred: false })
-        })
-      })
-    },
-    fetchAll: function(callback) {
-      storage.get( STORAGE_STAR , function(resp) {
-        if (resp && resp[STORAGE_STAR]) {
-          callback(resp[STORAGE_STAR])
-        } else {
-          callback([])
-        }
-      })
-    }
-  }
-}])
-// packaged app
-.factory('FileSystemService', [function() {
+// for packaged app
+app.factory('FileSystemService', [function() {
   function errorHandler(e) {
     console.error(e);
   }

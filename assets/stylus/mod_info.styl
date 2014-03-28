@@ -1,3 +1,5 @@
+@require 'lib/vendor'
+
 #info
   .summary
     white-space pre-wrap
@@ -12,3 +14,65 @@
   .books
     .add-note
       font-size 1em
+  & > section
+    h1
+      font-size 1.32em
+    &.statistic
+      h1
+        margin-top 0
+    &.account
+      .ui-card
+        text-align center
+        margin-right 1em
+      a
+        font-size 3em
+        // color #4B4D4E
+        color #757778
+        &:hover, &.active
+          // color #5FB336
+          color lightseagreen
+        &.active
+          cursor default
+      span
+        font-size .4em
+        display block
+  .bind-choice
+    .icon-evernote
+      color lightgray
+      float left
+      font-size 3em
+      margin-right .3em
+    a
+      &:first-of-type
+        display inline-block
+        padding-bottom .1em
+        margin-bottom .2em
+        border-bottom 1px solid #eee
+      &:last-of-type
+        display block
+  .unbind
+    position relative
+    &:before, &:after
+      content ""
+      position absolute
+    &:before
+      transition background .3s
+    &:after
+      content "解绑"
+      color #e74c3c
+      top 50%
+      left 50%
+      transform(translate(-50%, -50%))
+      opacity 0
+      transition opacity .3s
+    &:hover
+      cursor pointer
+      &:before
+        top 0
+        left 0
+        right 0
+        bottom 0
+        background rgba(255, 255, 255, .7)
+      &:after
+        display initial
+        opacity 1

@@ -1,16 +1,17 @@
 section#one-book
-  h1
-    a(link="/{{ author.uid }}", ng-show="!author.is_self") {{ author.name }}的书架 > 
-    {{ book.title }}
+  //- h1
+    //- a(link="/{{ author.uid }}", ng-show="!author.is_self") < {{ author.name }}的书架
+    //- {{ book.title }}
   div.cubic-view
-    div.book-cube(color-thief, image="book_cover", ng-model="dominateColor", ng-class="{ 'sided': book_sided }")
-      div.book-front(ng-class="{ 'opened': book_opened }", ng-click="openBook()")
+    div.book-cube(color-thief, image="book_cover", ng-model="dominateColor", ng-class="{ 'sided': book_sided }", ng-click="openBook()", ng-mouseleave="closeBook()")
+      div.book-front(ng-class="{ 'opened': book_opened }")
         .book-cover-backface(ng-style="{ 'background-color': dominateColor.background }")
         .book-cover-frontface(remote-image="book_cover")
-      div.book-page(ng-mouseleave="openBook()")
+      div.book-page
         div.page-content
-          a.icon-feather(link="/{{ user.uid }}/book/{{ book.id }}/new")写新笔记
-          a(ng-click="exportNotes()")导出所有笔记
+          //- a.icon-feather(link="/{{ user.uid }}/book/{{ book.id }}/new")写新笔记
+          //- a(ng-click="exportNotes()")导出所有笔记
+          p.summary {{ book.summary | characters: 300 }}
           a(href="http://book.douban.com/subject/{{ book.id }}/", target="_blank")去豆瓣看这本书
       div.book-back(ng-style="{ 'background-color': dominateColor.background }")
       div.book-top
@@ -23,8 +24,11 @@ section#one-book
     header
       h2 共{{ book.notes_count }}篇笔记
       nav.order.button-group()
-        button(ng-click="order='time'; reverse=true", ng-class="{'active': (order=='time')}") 最新
-        button(ng-click="order='page_no'; reverse=false", ng-class="{'active': (order=='page_no')}") 页码
+        button.button-plain(ng-click="order='time'; reverse=true", ng-class="{'active': (order=='time')}") 最新
+        button.button-plain(ng-click="order='page_no'; reverse=false", ng-class="{'active': (order=='page_no')}") 页码
+      div.utils
+        a.button-primary.icon-feather(link="/{{ user.uid }}/book/{{ book.id }}/new") 写新笔记
+        a.button-primary.icon-export(ng-click="exportNotes()") 导出
     ul.notes
       li.note(ng-repeat="note in book.notes | orderBy: order : reverse")
         a.note-mask(link="/note/{{ note.id }}")
@@ -46,6 +50,8 @@ script(type="text/ng-template", id="modalExport.html")
         div.preview-html(ng-show="exportFormat == 'html'")
           previewer(markdown="exports")
     div.modal-footer
+      div
+        button.icon-evernote(ng-show="user.evernote || user.yinxiang", ng-click="popupEvernote()") 保存到Evernote
       div.buttons-group
         button.button-primary(ng-click="download()") 导出
         button.button-default(ng-click="cancel()") 取消

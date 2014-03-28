@@ -23,6 +23,8 @@ a:hover {
 
 header {
   background: -webkit-radial-gradient(bottom center,circle,#4D4E48,#2E2F2B);
+  background: -moz-radial-gradient(bottom center,circle,#4D4E48,#2E2F2B);
+  background: radial-gradient(bottom center,circle,#4D4E48,#2E2F2B);
   padding-top: 6rem;
   overflow: hidden;
 }
@@ -47,6 +49,8 @@ header > * {
   background: url('/img/screenshot.png') no-repeat;
   background-size: cover;
   -webkit-transform: translateY(5rem);
+  -moz-transform: translateY(5rem);
+  transform: translateY(5rem);
   margin-top: -5rem;
 }
 section {

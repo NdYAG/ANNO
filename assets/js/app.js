@@ -11,7 +11,7 @@ var $ = function(selector) {
   }
 }
 
-angular.module('ANNO', [
+var app = angular.module('ANNO', [
   'ngRoute',
   'ANNO.controllers',
   'ANNO.directives',
@@ -66,9 +66,7 @@ angular.module('ANNO', [
     if (next.templateUrl == "/partials/about.html" || next.templateUrl == "/partials/login.html") {
       return
     }
-    UserService.isLoggedIn().then(function() {
-
-    }, function() {
+    UserService.isLoggedIn().catch(function() {
       $location.path('/login')
     })
   })

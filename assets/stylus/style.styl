@@ -48,6 +48,13 @@ header
     box-shadow none
     background none
     color #aaa
+  .title
+    font-size .8em
+    line-height 1.25
+    margin-left 1em
+    font-family Hiragino Sans GB, STHeiti, Microsoft Yahei, sans-serif
+    a
+      color #fff
 
 @import "mod_aside.styl"
 @import "mod_auth.styl"
@@ -157,31 +164,40 @@ li.book
   margin-left 310px
   transform(translateZ(0))
 
-
-header
-  h2, .order
-    display inline-block
-  .order
-    position relative
-    left 3em
-  .utils
-    padding .8em 0
-    .button-primary
-      border-radius .3em
+  header
+    padding-bottom 1em
+    border-bottom 1px solid #eee
+    margin-bottom 1em
+    span
+      color #999
       margin-right 1em
+      font-size 12px
+    .button-default
+      color #000
+      border-radius 3px
+      margin-right 1em
+    .order
+      display inline-block
+    .button-primary
+      display inline-block
+      border-radius 2px
+      margin-right .5em
       background #aaa
-      border-color #aaa
+      border none
+      border-bottom 3px solid #777
       transition all .3s
+      &:before
+        vertical-align middle
       &:hover
         background lightseagreen
-        border-color lightseagreen
-  .title
-    font-size .8em
-    line-height 1.25
-    margin-left 1em
-    font-family Hiragino Sans GB, STHeiti, Microsoft Yahei, sans-serif
-    a
-      color #fff
+        border-radius 2px
+        border-color #12837D
+    [class*="icon-"]:before
+      margin-right .5em
+    .right-actions
+      float right
+      margin-top .2em
+      margin-bottom 1em
 
 @import "widgets/book-3d.styl"
 

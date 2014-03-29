@@ -11,7 +11,7 @@ section#one-book
         div.page-content
           //- a.icon-feather(link="/{{ user.uid }}/book/{{ book.id }}/new")写新笔记
           //- a(ng-click="exportNotes()")导出所有笔记
-          p.summary {{ book.summary | characters: 300 }}
+          p.summary {{ book.summary }}
           a(href="http://book.douban.com/subject/{{ book.id }}/", target="_blank")去豆瓣看这本书
       div.book-back(ng-style="{ 'background-color': dominateColor.background }")
       div.book-top

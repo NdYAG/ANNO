@@ -5,12 +5,13 @@ div#editor
     span#page
       label 页码:
         input#page_no(type="number", name="page_no", placeholder="填写 页码 或 章节最后一页", ng-model="article.page_no", min="0", max="50000")
-    label
-      input(type="radio", name="privacy", value="public", ng-model="article.privacy")
-      公开
-    label
-      input(type="radio", name="privacy", value="private", ng-model="article.privacy")
-      隐藏
+    span#privacy
+      label
+        input(type="radio", name="privacy", value="public", ng-model="article.privacy")
+        公开
+      label
+        input(type="radio", name="privacy", value="private", ng-model="article.privacy")
+        隐藏
     ul.toolbar
       li.icon-bold(ng-click="bold()")
       li.icon-italic(ng-click="italic()")

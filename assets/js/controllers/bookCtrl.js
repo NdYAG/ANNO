@@ -14,7 +14,7 @@ annoCtrl.controller('BookCtrl', ['$scope', '$routeParams', '$modal', '$timeout',
     }
     $scope.author = user
     SerializeService.fetchBook(user.id, bid).then(function(book) {
-      $scope.$emit('page:change', 'book', (user.name? '<a link="/' + user.uid + '">' + user.name + '的书架</a> ❯ ' : '') + book.title)
+      $scope.$emit('page:change', 'book', (user.is_self? '<a link="/">我的书架 ❯ </a>': '<a link="/' + user.uid + '">' + user.name + '的书架</a> ❯ ') + book.title)
       $scope.book = book
       $scope.order = 'time'
       $scope.reverse = true

@@ -5,7 +5,7 @@ section#one-note(ng-hide="error")
     time(datetime="{{ note.time }}") {{ note.time | date: note.time : 'longDate'}}
     span.note-privacy(ng-class="{'icon-lock': note.privacy === 1}")
   div.operate(scroll-hide, hide-from=60, target-sel=".ng-view")
-    a.icon-pen(ng-show="can_operate", link="/note/{{ note.id }}/edit")
+    a.icon-edit(ng-show="can_operate", link="/note/{{ note.id }}/edit")
       span 编辑
     a.icon-star-empty(ng-show="!has_starred", ng-click="toggleStar(true)")
       span 收藏

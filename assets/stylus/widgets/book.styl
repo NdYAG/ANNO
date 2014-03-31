@@ -15,6 +15,7 @@ book_h = 160px
     background-position center
     box-shadow 0 2px 3px #ddd
     position relative
+    border-radius: 2px
     // &:before
     //   content ""
     //   position absolute
@@ -33,11 +34,14 @@ book_h = 160px
       // overflow hidden
       // border-radius 0 .3em .3em 0
       // box-shadow 2px 2px 2px #DDD, inset 4px 0 0 rgba(0, 0, 0, .1)
-      box-shadow inset 0 0 1px #000
+      box-shadow inset 0 0 1px rgba(#32373A, 0.5), inset 2px 0 5px rgba(#fff, 0.5)
+      border-radius: 2px
       position relative
       background-color transparent
       transition background-color .3s
     &:hover
+      a
+        box-shadow initial
       .book-link
         background-color rgba(0, 0, 0, .65)
       .add-note

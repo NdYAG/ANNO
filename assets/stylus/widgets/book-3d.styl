@@ -135,7 +135,12 @@ cube_h = 400px
       .summary
         color #666
         margin 0 -2em 1em
-        text-align justify
+        text-align left
+        overflow hidden
+        text-overflow ellipsis
+        display -webkit-box
+        -webkit-line-clamp 5
+        -webkit-box-orient vertical
     a
       display block
       color #666

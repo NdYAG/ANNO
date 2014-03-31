@@ -39,8 +39,8 @@ block content
       div.modal-header
         h3 确定注销？下次登陆将需要重新前往豆瓣授权。
       div.modal-footer.buttons-group
-          button.button-warning(ng-click="ok()") 注销
           button.button-default(ng-click="cancel()") 取消
+          button.button-warning(ng-click="ok()") 注销
   script(type="text/ng-template", id="modalEvernote.html")
     div.modal-evernote
       div.modal-header
@@ -59,8 +59,8 @@ block content
       div.modal-footer
         div.status {{ status }}
         div.buttons-group
-          button.button-primary(ng-click="ok(choice_notebook, selectedNotebook, new_notebook)") 保存
           button.button-default(ng-click="cancel()") 取消
+          button.button-primary(ng-click="ok(choice_notebook, selectedNotebook, new_notebook)") 保存
     
 block scripts
   script(src="lib/underscore/underscore.min.js")

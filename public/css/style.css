@@ -29,7 +29,7 @@ input.ng-invalid{color:#dc143c !important}
 .modal{display:none;overflow:auto;overflow-y:scroll;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;}
 .modal.fade .modal-dialog{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);transform:translate(-50%,-50%);-webkit-transition:-webkit-transform .3s ease-out;-moz-transition:-moz-transform .3s ease-out;-webkit-transition:transform .3s ease-out;-moz-transition:transform .3s ease-out;transition:transform .3s ease-out;min-width:60%}
 .modal-dialog{margin-left:auto;margin-right:auto;width:auto;padding:10px;z-index:1050}
-.modal-content{position:relative;background-color:#fff;border:1px solid rgba(0,0,0,0.2);border-radius:$border-radius-large;background-clip:padding-box;outline:none}
+.modal-content{position:relative;background-color:#fff;border-radius:5px;box-shadow:0 0 40px rgba(0,0,0,0.6);overflow:hidden;background-clip:padding-box;outline:none}
 .modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1030;background-color:rgba(0,0,0,0.3);}
 .modal-header{padding:15px}
 .modal-header .close{margin-top:-2px}
@@ -239,6 +239,7 @@ ul.notes{margin:0 -.8em}
 .export-preview{font-size:90%;white-space:pre-wrap;overflow-y:scroll;max-height:300px;margin-top:1em;border:2px solid #eee;padding:1em;box-sizing:border-box;-webkit-user-select:text;user-select:text;}
 .export-preview pre{white-space:pre-wrap}
 .typo-center,.content > h2,.content > h3,.content > h4,.content > h5,.content > h6,.content > p,.content > ul,.content > ol,.content > pre code,.content > blockquote,.content > hr,body > .meta,#one-note h1,.meta,#reader h1{max-width:600px;margin-left:auto;margin-right:auto}
+div,ul,li,p,article,h1,h2,h3,h4,h5,h6,header,nav,form{word-wrap:break-word}
 .content p,.content > ol,.content > ul,.content blockquote{font-size:15px;line-height:1.65}
 .content hr{border:0;border-top:1px dashed #aaa;margin-top:3em;margin-bottom:3em}
 .content a{text-decoration:none;color:#00b7ff;}
@@ -251,7 +252,7 @@ ul.notes{margin:0 -.8em}
 pre{background:transparent}
 code.hljs{background:transparent}
 .global_note .ng-view{margin-top:0;padding-top:50px}
-#one-note{margin:3em 0;word-wrap:break-word;}
+#one-note{margin:3em 0;}
 #one-note pre{background:#eee;white-space:pre-wrap}
 #one-note .content{margin-bottom:40px;-webkit-user-select:text;user-select:text}
 #one-note .share{margin-bottom:60px}

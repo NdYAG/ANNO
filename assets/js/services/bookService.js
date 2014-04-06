@@ -14,7 +14,7 @@ app.factory('BookService', ['$q', '$http', '$rootScope', function($q, $http, $ro
       }
       if (!book) {
         $http.get('/api/v2/book/' + bid).success(function(book) {
-          defer.resolve(book)
+          defer.resolve(_.pick(book, 'id', 'title', 'author', 'images', 'summary'))
         })
       } else {
         defer.resolve(book)

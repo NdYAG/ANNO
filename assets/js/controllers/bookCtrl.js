@@ -55,7 +55,14 @@ annoCtrl.controller('BookCtrl', ['$scope', '$routeParams', '$modal', '$timeout',
                   is_saved && $modalInstance.close()
                 })
               } else if ($scope.exportFormat == 'html') {
-                var blob = new Blob([angular.element(document.querySelector('.preview-html')).html()], {type: "text/html;charset=utf-8"})
+                var el = angular.element(document.querySelector('.preview-html')).clone()
+                Array.prototype.slice.call(el.find('img'), 0).forEach(function(img) {
+                  img = $(img)
+                  img.attr('src', img.attr('data-src'))
+                  img.removeAttr('data-src')
+                })
+                console.log(el)
+                var blob = new Blob([el.html()], {type: "text/html;charset=utf-8"})
                 // saveAs(blob, book.title + '.html')
                 FileSystemService.save(blob, book.title, 'html', function(is_saved) {
                   is_saved && $modalInstance.close()

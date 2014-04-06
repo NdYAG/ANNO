@@ -23,6 +23,8 @@ annoCtrl.controller('InfoCtrl', ['$scope', 'AuthService', 'UserService', 'Serial
         , end, end_id
         , time
       start = end = new Date(notes[0].time)
+      start_bid = notes[0].book_id
+      start_nid = notes[0].id
       _.each(notes, function(note, nid) {
         time = new Date(note.time)
         if (time < start) {
@@ -35,7 +37,7 @@ annoCtrl.controller('InfoCtrl', ['$scope', 'AuthService', 'UserService', 'Serial
           end_id = nid
         }
       })
-        $scope.start = start.toLocaleDateString()
+      $scope.start = start.toLocaleDateString()
       $scope.end = end.toLocaleDateString()
       $scope.start_book = books[start_bid]
       $scope.start_note = notes[start_nid]

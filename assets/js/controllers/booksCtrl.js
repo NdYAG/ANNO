@@ -35,7 +35,7 @@ annoCtrl.controller('BooksCtrl', ['$scope', '$routeParams', '$modal', '$timeout'
 
 }]).controller('SearchBookCtrl', ['$scope', '$modalInstance', '$location', '$http', 'BookService', 'user', function($scope, $modalInstance, $location, $http, BookService, user) {
   $scope.searchBook = function(query) {
-    if (!query.match(/^\d{8}$/)) {  // search by keyword
+    if (!query.match(/^\d*$/)) {  // search by keyword
       $http.get('/api/v2/book/search', {
         params: {
           q: query
@@ -47,7 +47,7 @@ annoCtrl.controller('BooksCtrl', ['$scope', '$routeParams', '$modal', '$timeout'
           $scope.selectedBook = res.books[0]
         }
       })
-    } else { // fetch book by subject id
+    } else { // search by subject id
       BookService.get(query).then(function(book) {
         $scope.selectedIndex = 0
         $scope.selectedBook = book

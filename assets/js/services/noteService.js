@@ -1,4 +1,4 @@
-app.factory('NoteService', ['$http', '$rootScope', 'UserService', function($http, $rootScope, UserService) {
+app.factory('NoteService', ['$http', '$rootScope', 'UserService', 'BookService', function($http, $rootScope, UserService, BookService) {
   var user = $rootScope.user
     , id = user.id
     , STORAGE_BOOK = id + '_books'
@@ -21,6 +21,12 @@ app.factory('NoteService', ['$http', '$rootScope', 'UserService', function($http
     if (book) {
       book.notes_count += delta
       sessionStorage.setItem(STORAGE_BOOK, JSON.stringify(books))
+    } else { // add a new book
+      BookService.get(bid).then(function(book) {
+        book.notes_count = 1
+        books[bid] = book
+        sessionStorage.setItem(STORAGE_BOOK, JSON.stringify(books))
+      })
     }
   }
   return {

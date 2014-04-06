@@ -61,7 +61,6 @@ annoCtrl.controller('BookCtrl', ['$scope', '$routeParams', '$modal', '$timeout',
                   img.attr('src', img.attr('data-src'))
                   img.removeAttr('data-src')
                 })
-                console.log(el)
                 var blob = new Blob([el.html()], {type: "text/html;charset=utf-8"})
                 // saveAs(blob, book.title + '.html')
                 FileSystemService.save(blob, book.title, 'html', function(is_saved) {

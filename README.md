@@ -14,8 +14,8 @@
 
 ANNO是一个开源的应用，目前基本支持了豆瓣的 OAuth2 读书笔记读写 API，还有以下功能正在开发：
 
-* ~~加入数学公式支持~~
-* 带格式导出笔记到Evernote
+* 加入数学公式支持
+* ~~带格式导出笔记到Evernote~~ (已集成)
 * ……
 
 ### 开发准备
@@ -33,10 +33,8 @@ ANNO是一个开源的应用，目前基本支持了豆瓣的 OAuth2 读书笔�
 
 ## 鼓励
 
-如果你觉得这个App对你有帮助，欢迎以各种形式送我几本书看，非常感谢。
+如果你觉得这个App对你有帮助，欢迎请我喝杯茶 :)
 
-* [心愿书单](http://book.douban.com/doulist/3639007/)
-
-* [https://me.alipay.com/simonday](https://me.alipay.com/simonday)
+![](http://ww4.sinaimg.cn/large/6143ba6fgw1egaatassv2j2074074wf1.jpg)
 
 欢迎关注我的豆瓣: [阿弟](http://www.douban.com/people/sensitive/)。

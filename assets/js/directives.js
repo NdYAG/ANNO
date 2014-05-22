@@ -276,6 +276,7 @@ angular.module('ANNO.directives', [])
   return function(scope, elem, attrs) {
     var ERROR = {
         '103': '访问令牌出错，需要<a link="/login">重新授权登录</a>',
+        '106': '访问令牌过期，需要<a link="/login">重新登录</a>',
         '111': '访问太频繁，超出第三方应用限额',
         '999': '未知错误',
         '1000': '<a link="/">这篇笔记是私密的，只能阅读到简介部分，不能显示全文。点我返回书架</a>',

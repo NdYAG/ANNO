@@ -272,7 +272,7 @@ angular.module('ANNO.directives', [])
     })
   }
 }])
-.directive('alert', ['$rootScope', '$timeout', '$compile', function($rootScope, $timeout, $compile) {
+.directive('alert', ['$rootScope', '$timeout', '$compile', 'AnalyticsService', function($rootScope, $timeout, $compile, AnalyticsService) {
   return function(scope, elem, attrs) {
     var ERROR = {
         '103': '访问令牌出错，需要<a link="/login">重新授权登录</a>',
@@ -302,6 +302,11 @@ angular.module('ANNO.directives', [])
       if (link.length) {
         link.replaceWith($compile(link[0].outerHTML)(scope))
       }
+      // report to ga
+      AnalyticsService.reportError({
+        id: data.code,
+        msg: data.msg
+      })
     })
 
     scope.$on('alert:success', function(e, msg) {
@@ -353,7 +358,7 @@ angular.module('ANNO.directives', [])
   return function (scope, element, attrs) {
     element.bind("click", function () {
       scope.$apply($location.path(attrs.link))
-    });
+    })
   }
 })
 .directive('compile', ['$compile', function ($compile) {

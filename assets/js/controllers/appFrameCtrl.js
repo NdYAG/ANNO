@@ -1,4 +1,4 @@
-annoCtrl.controller('appFrameCtrl', ['$scope', '$rootScope', '$location', '$modal', '$compile', 'UserService', function($scope, $rootScope, $location, $modal, $compile, UserService) {
+annoCtrl.controller('appFrameCtrl', ['$scope', '$rootScope', '$location', '$modal', '$compile', 'UserService', 'AnalyticsService', function($scope, $rootScope, $location, $modal, $compile, UserService, AnalyticsService) {
   $scope.asideVisible = 0
   $scope.toggleSidebar = function() {
     $scope.asideVisible ^= 1
@@ -15,6 +15,7 @@ annoCtrl.controller('appFrameCtrl', ['$scope', '$rootScope', '$location', '$moda
     $scope.headerInvisible = (mode == 'note' || mode == 'editor')
     $scope.globalCSSClass = 'global_' + mode
     $scope.globalTitle = title || ''
+    AnalyticsService.sendAppView(mode)
   })
 
   $scope.logout = function() {

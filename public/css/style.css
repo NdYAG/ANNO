@@ -342,6 +342,7 @@ html.global_editor .ng-view{overflow:hidden;width:calc(100% - 64px);margin-top:0
 #about h2 + ul,#about h2 ~ div{padding-left:40px}
 #about h2 ~ div{line-height:2;}
 #about h2 ~ div a{display:inline-block;margin:0 .8em;text-decoration:none}
+#info{margin-bottom:3em;}
 #info .summary{white-space:pre-wrap;line-height:1.8;}
 #info .summary a{color:#20b2aa;text-decoration:none;margin:0 .3em;}
 #info .summary a:hover{background:#20b2aa;color:#fff}
@@ -363,6 +364,7 @@ html.global_editor .ng-view{overflow:hidden;width:calc(100% - 64px);margin-top:0
 #info .unbind:hover{cursor:pointer;}
 #info .unbind:hover:before{top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.7)}
 #info .unbind:hover:after{display:initial;opacity:1}
+#info .options .tip{font-size:12px;color:#bbb}
 #friends .friends{padding:0;margin:0}
 #friends .friend{display:inline-block;margin:1em;width:60px;text-align:center;vertical-align:top;}
 #friends .friend a{color:#999;text-decoration:none;}

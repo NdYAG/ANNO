@@ -1,4 +1,4 @@
-annoCtrl.controller('InfoCtrl', ['$scope', 'AuthService', 'UserService', 'SerializeService', function($scope, AuthService, UserService, SerializeService) {
+annoCtrl.controller('InfoCtrl', ['$scope', 'AuthService', 'UserService', 'SerializeService', 'AnalyticsService', function($scope, AuthService, UserService, SerializeService, AnalyticsService) {
   $scope.$emit('page:change', 'info', '个人信息')
 
   UserService.getUserInfo().then(function(user) {
@@ -64,5 +64,12 @@ annoCtrl.controller('InfoCtrl', ['$scope', 'AuthService', 'UserService', 'Serial
       $scope[type + '_bound'] = false
       $scope.$apply()
     })
+  }
+
+  AnalyticsService.isTrackingPermitted().then(function(isTrackingPermitted) {
+    $scope.analytics_allowed = isTrackingPermitted
+  })
+  $scope.alter_analytics = function(isTrackingPermitted) {
+    AnalyticsService.setTrackingPermission($scope.analytics_allowed)
   }
 }])

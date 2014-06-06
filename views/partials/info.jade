@@ -21,8 +21,15 @@ section#info
         span 印象笔记
   section.recent
     h1 最近写过笔记的书
-      ul.books
-        li.book(ng-repeat="book in recent_books")
-          div.cover(remote-image="book.images.large")
-            a.book-link(link="/{{ user.uid }}/book/{{ book.id }}")
-            a.add-note.icon-pen(link="/{{ user.uid }}/book/{{ book.id }}/new", title="继续写")
+    ul.books
+      li.book(ng-repeat="book in recent_books")
+        div.cover(remote-image="book.images.large")
+          a.book-link(link="/{{ user.uid }}/book/{{ book.id }}")
+          a.add-note.icon-pen(link="/{{ user.uid }}/book/{{ book.id }}/new", title="继续写")
+  section.analytics
+    h1 发送错误报告
+    div.options.ui-card
+      label
+        input(type="checkbox", ng-model="analytics_allowed", ng-change=" alter_analytics() ")
+        | 允许发生错误时发送匿名数据报告
+      div.tip * 帮助读书笔记变得更健壮，报告完全匿名，不带有你的任何用户信息

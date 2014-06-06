@@ -62,6 +62,7 @@ module.exports = function(grunt) {
             , 'assets/js/services/httpLoadingIntercepter.js'
             , 'assets/js/services/httpOAuthIntercepter.js'
             , 'assets/js/services/filesystemService.js'
+            , 'assets/js/services/analyticsService.js'
         ],
         dest: 'assets/js/services.js'
       },

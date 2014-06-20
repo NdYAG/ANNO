@@ -53,11 +53,11 @@ annoCtrl.controller('EditorCtrl', ['$scope', '$routeParams', '$http', '$location
   $scope.save = function() {
     var payload = {
       content: TranslateService.markdownToDouban($scope.note.content),
-      page: $scope.note.page_no,
       chapter: $scope.note.chapter,
       privacy: $scope.note.privacy
     }
       , last_photo = $scope.note.last_photo
+    $scope.note.page_no && (payload['page'] = $scope.note.page_no)
     if ($scope.action == 'put') {
       NoteService.put({
         id: $routeParams.nid

@@ -30,11 +30,3 @@ ANNO是一个开源的应用，目前基本支持了豆瓣的 OAuth2 读书笔�
 * 开发时执行 `grunt watch`，将 `assets/` 下的文件编译、压缩到 `public/` 中。
 
 在Chrome扩展中加载项目目录，开启应用调试。
-
-## 鼓励
-
-如果你觉得这个App对你有帮助，欢迎请我喝杯茶 :)
-
-![](http://ww4.sinaimg.cn/large/6143ba6fgw1egaatassv2j2074074wf1.jpg)
-
-欢迎关注我的豆瓣: [阿弟](http://www.douban.com/people/sensitive/)。

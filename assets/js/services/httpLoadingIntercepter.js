@@ -1,7 +1,7 @@
 app.factory('HttpLoadingIntercepter', ['$q', '$rootScope', function($q, $rootScope) {
   var n_loading = 0
   function isSerious(rejection) {
-    if (rejection.data.type === 'text/html') {
+    if (rejection && rejection.data && rejection.data.type === 'text/html') {
       return false
     }
     return true

@@ -33,15 +33,11 @@ modal()
 
 html.global_editor
   height 100%
-  overflow hidden
   body, .ng-view, .container
     height 100%
-  body
-    overflow hidden
   .ng-view
     overflow hidden
-    width calc(100% \- 64px)
-    margin-top 0
+    transform translateY(0)
 
 #editor, #reader
   height 100%

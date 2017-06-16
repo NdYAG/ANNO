@@ -1,16 +1,15 @@
 extends layout
 
 block content
-  header.header(ng-class="{ 'pushed' : asideVisible, 'vanished' : headerInvisible }")
+  header.header(ng-class="{ 'vanished' : headerInvisible }")
     span.icon-sidebar(ng-click="toggleSidebar()")
-    //-span.title(ng-bind-html="globalTitle")
     span.title(compile="globalTitle")
-  aside.hidden(ng-class="{ 'show': asideVisible }")
+  aside
     div.banner(ng-show="user")
       a.avatar(ng-show="user", remote-image="user.avatar", link="/", ng-click="toggleSidebar()")
     ul(ng-show="user")
       li
-        a(link="/", ng-click="toggleSidebar()") 我的书架
+        a(link="/") 我的书架
       li(ng-show="lastBook && user")
         a(link="/{{ author.uid }}/book/{{ lastBook.id }}") 返回 {{ lastBook.title }}
       li
@@ -27,13 +26,7 @@ block content
     ul.info
       li
         a(link="/about") 关于 · 反馈
-  div.ng-view(ng-class="{ 'pushed' : asideVisible }")
-  div.loading(loader)
-    div.rect1
-    div.rect2
-    div.rect3
-    div.rect4
-    div.rect5
+  div.ng-view(smoothscroll)
   div.alert(alert)
   script(type="text/ng-template", id="modalLogout.html")
       div.modal-header
@@ -77,7 +70,6 @@ block scripts
               
   script(src="/lib/angular-bootstrap/ui-bootstrap.min.js")
   script(src="/lib/angular-bootstrap/ui-bootstrap-tpls.min.js")
-  
   script(src="lib/ng-infinite-scroll/ng-infinite-scroll.min.js")
         
   script(src="/lib/codemirror/codemirror.min.js")

@@ -7,5 +7,12 @@ html(ng-app="ANNO", ng-controller="appFrameCtrl", ng-class="globalCSSClass", ng-
     link(rel='stylesheet', href='/css/codemirror.css')
     link(rel='stylesheet', href='/css/themes/tomorrow.css')
   body
-    block content
+    div#app(ng-class="{ 'pushed': asideVisible }")
+      block content
+    div.loading(loader)
+      div.rect1
+      div.rect2
+      div.rect3
+      div.rect4
+      div.rect5
     block scripts

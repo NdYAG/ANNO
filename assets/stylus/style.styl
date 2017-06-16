@@ -1,13 +1,15 @@
 @require "lib/vendor"
 $page_width = 600px
 
-html, body
+html, body, #app
   height 100%
 
 .ng-view
   height calc(100% \- 50px)
-  margin-top 50px
+  transform translateY(50px)
   overflow-y auto
+  position relative
+  left 200px
 
 .ng-hide
   display: none !important
@@ -44,7 +46,7 @@ header
     span.icon-sidebar
       float left
   &.vanished
-    right auto
+    width auto
     box-shadow none
     background none
     color #aaa
@@ -62,8 +64,6 @@ header
 //#all-books, #one-book, #about, #info, #friends
 .ng-view > section
   margin 3em 3em 0
-
-// all books
 
 ul.books
   padding 0
@@ -145,11 +145,6 @@ li.book
 .selected-book-name
   color #e74c3c
 
-
-// one book
-.ng-view.pushed
-  .main
-    top 60px
 
 #one-book
   h1

@@ -1,7 +1,7 @@
 {
   "name": "读书笔记",
   "description": "豆瓣读书笔记第三方应用",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "manifest_version": 2,
   "minimum_chrome_version": "29",
   "app": {
@@ -14,7 +14,7 @@
     {"fileSystem": ["write"]}
     , "storage"
     , "identity"
-    , "https://www.douban.com/*", "https://api.douban.com/*", "http://*.douban.com/*"
+    , "https://www.douban.com/*", "https://api.douban.com/*", "http://*.douban.com/*", "https://*.douban.com/*", "http://*.doubanio.com/*", "https://*.doubanio.com/*"
     , "https://*.evernote.com/*", "http://*.evernote.com/*"
     , "https://*.yinxiang.com/*", "http://*.yinxiang.com/*"
     , "https://www.google-analytics.com/"

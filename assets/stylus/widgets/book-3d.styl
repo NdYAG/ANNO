@@ -62,15 +62,15 @@ cube_h = 400px
   .book-top
     transform rotateX(90deg)
   .book-bottom
-	  transform rotateX(-90deg) translate3d(0,0,390px)
+    transform rotateX(-90deg) translate3d(0,0,390px)
   .book-front
-	  transform translate3d(0,0,20px)
+    z-index 1
+    transform rotateX(0) translate3d(0,0,20px)
   .book-front, .book-left
     background-size cover
   .book-front
     box-shadow inset 4px 0 10px rgba(0, 0, 0, 0.1)
     -webkit-transform-style preserve-3d
-    -webkit-backface-visibility hidden
     &:after
       content ""
       position absolute

@@ -3,6 +3,9 @@ annoCtrl.controller('appFrameCtrl', ['$scope', '$rootScope', '$location', '$moda
   $scope.toggleSidebar = function() {
     $scope.asideVisible ^= 1
   }
+  $scope.enterMyBookshelf = function() {
+    $scope.toggleSidebar()
+  }
   $scope.$on('$routeChangeStart', function() {
     $scope.lastBook = null
     $scope.globalTitle = ''

@@ -49,9 +49,7 @@ annoCtrl.controller('BookCtrl', ['$scope', '$routeParams', '$modal', '$timeout',
           controller: function($scope, $modalInstance) {
             $scope.download = function () {
               if ($scope.exportFormat == 'markdown') {
-                var blob = new Blob([exports], {type: "text/plain;charset=utf-8"})
-                // saveAs(blob, book.title + ".md")
-                FileSystemService.save(blob, book.title, 'md', function(is_saved) {
+                FileSystemService.save(exports, book.title, 'md', function(is_saved) {
                   is_saved && $modalInstance.close()
                 })
               } else if ($scope.exportFormat == 'html') {
@@ -61,9 +59,7 @@ annoCtrl.controller('BookCtrl', ['$scope', '$routeParams', '$modal', '$timeout',
                   img.attr('src', img.attr('data-src'))
                   img.removeAttr('data-src')
                 })
-                var blob = new Blob([el.html()], {type: "text/html;charset=utf-8"})
-                // saveAs(blob, book.title + '.html')
-                FileSystemService.save(blob, book.title, 'html', function(is_saved) {
+                FileSystemService.save(el.html(), book.title, 'html', function(is_saved) {
                   is_saved && $modalInstance.close()
                 })
               }

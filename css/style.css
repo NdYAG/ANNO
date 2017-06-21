@@ -43,6 +43,9 @@ header > * {
 .download {
   margin: 1.75rem 0;
 }
+.download a {
+  color: #fff;
+}
 .screenshot {
   width: 800px;
   height: 530px;

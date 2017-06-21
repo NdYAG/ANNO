@@ -33,10 +33,8 @@ var EvernoteAuth = (function() {
           if (!resp.oauth_callback_confirmed) return
           chrome.identity.launchWebAuthFlow({
             interactive: true,
-            url: conf.hostname[type] + '/OAuth.action?oauth_token=' + resp.oauth_token,
-            detail: {
-              redirectUri: redirectURL
-            }
+            url: conf.hostname[type] + '/OAuth.action?oauth_token=' + resp.oauth_token +
+                  '&redirectUri=' + encodeURIComponent(redirectURL)
           }, function(redirectUri) {
             console.log('launchWebAuthFlow completed', chrome.runtime.lastError, redirectUri)
             if (chrome.runtime.lastError) {

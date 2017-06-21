@@ -1,0 +1,42 @@
+{
+  "parser": "babel-eslint",
+  "rules": {
+    "indent": [2, 2, {"VariableDeclarator": 2}],
+    "quotes": [0, "double"],
+    "linebreak-style": [
+      2,
+      "unix"
+    ],
+    "semi": [
+      2,
+      "never"
+    ],
+    "no-unused-vars": [2, {"vars": "all", "args": "none"}],
+    "no-underscore-dangle": 0,
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "amd": true
+  },
+  "ecmaFeatures": {
+    "jsx": true,
+    "arrowFunctions": true,
+    "blockBindings": true,
+    "classes": true,
+    "defaultParams": true,
+    "modules": true,
+    "superInFunctions": true,
+    "templateStrings": true,
+    "destructuring": true,
+    "forOf": true,
+    "restParams": true,
+    "spread": true
+  },
+  "plugins": [
+    "react"
+  ]
+}

@@ -4,12 +4,13 @@
   "version": "0.2.7",
   "manifest_version": 2,
   "minimum_chrome_version": "29",
+  "key": "cekpldeffalionmgoedldkdnlcbphamp",
   "app": {
     "background": {
       "scripts": ["background.js"]
     }
   },
-  "icons": { "16": "img/books.png", "128": "img/books.png" },
+  "icons": { "16": "img/anno.png", "128": "img/anno.png" },
   "permissions": [
     {"fileSystem": ["write"]}
     , "storage"

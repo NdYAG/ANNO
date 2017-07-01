@@ -40,8 +40,9 @@ annoCtrl.controller('BookCtrl', ['$scope', '$routeParams', '$modal', '$timeout',
       SerializeService.fetchBook(user.id, bid).then(function(book) {
         var exports
         exports = book.notes.map(function(note) {
-          return (note.chapter? ('#' + note.chapter + '\n\n') : '')
-               + TranslateService.doubanToMarkdown(note.content, note.photos)
+          return (note.chapter? ('#' + note.chapter + '\n\n') : '') +
+            (note.page_no? ('第' + note.page_no + '页\n\n'): '') +
+            TranslateService.doubanToMarkdown(note.content, note.photos)
         }).join('\n\n-----\n\n')
 
         var modalInstance = $modal.open({

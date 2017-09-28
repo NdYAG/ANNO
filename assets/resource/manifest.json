@@ -1,10 +1,9 @@
 {
   "name": "读书笔记",
   "description": "豆瓣读书笔记第三方应用",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "manifest_version": 2,
   "minimum_chrome_version": "29",
-  "key": "cekpldeffalionmgoedldkdnlcbphamp",
   "app": {
     "background": {
       "scripts": ["background.js"]

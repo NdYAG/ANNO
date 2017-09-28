@@ -39,9 +39,49 @@ app.factory('TranslateService', function() {
     text = text.replace(/(^\n+|\n+$)/g,"")
     return "\n\n~K" + (g_html_blocks.push(text)-1) + "K\n\n"
   }
+  var is_richtext = function(text) {
+    try {
+      var dict = JSON.parse(text)
+      if (dict.hasOwnProperty('entityMap') && dict.hasOwnProperty('blocks')) {
+        return true
+      }
+    } catch(e) {
+      return false
+    }
+  }
+  var richtextToMarkdown = function(text) {
+    var dict = JSON.parse(text)
+    var entityMap = dict.entityMap
+    var blocks = dict.blocks
+    return blocks.map(function(block) {
+      switch(block.type) {
+      case "blockquote": {
+        return '> ' + block.text
+      }
+      case "unstyled": {
+        return block.text
+      }
+      case "atomic": {
+        return block.entityRanges
+          .filter(function(range) { return entityMap[range.key].type === 'IMAGE'})
+          .map(function(range) {
+            var entity = entityMap[range.key]
+            return '![图片' + range.key + '](' + entity.data.src + ')'
+          }).join('\n\n')
+      }
+      default: {
+        return ''
+      }
+      }
+    }).join('\n\n')
+  }
 
   return {
     doubanToMarkdown: function(text, images) {
+      if (is_richtext(text)) {
+        return richtextToMarkdown(text)
+      }
+
       if (images && !_.isEmpty(images)) {
         text = text.replace(/\<图片(\d*)\>/g, function(_, num) {
           return '![图片' + num + '](' + images[num] + ')'
